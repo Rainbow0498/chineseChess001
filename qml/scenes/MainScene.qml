@@ -1,189 +1,188 @@
 import QtQuick 2.0
+import QtQuick.Layouts 1.2
 import Felgo 3.0
-import "../common"
-
+import"../common"
 Scene {
-    id: menuScene
+    id: mainScene
+    signal beginGamePressed
+    signal closeGamePressed
+    signal setGamePressed
+    signal helpGamePressed
 
-    // background
     Rectangle {
-        border.color: "red"
+        id:mainWindow
         anchors.fill: parent.gameWindowAnchorItem
-        Image{
-            source: "../../assets/background/background-image2.png"
+        BackgroundImage{
+            source: "../../assets/background/background-image.png"
             fillMode: Image.PreserveAspectCrop
             anchors.fill: parent
         }
-    }
 
-    // the "logo"
-    Text {
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 70
-        font.pixelSize: 30
-        color: "brown"
-        font.bold: true
-        font.family: standardFont.name
-        text: "Menu Scene" //zhucaidan
-    }
-
-    // TODO replace the buttons with your custom styled buttons
-    Column {
-        anchors.centerIn: parent
-        spacing: 20
+        //two functionButton
         MenuButton{
-            id:singleButton
-            width:130
-            height: 50
+            id:beginButton
+            width:70
+            height: 30
+            x:200
+            y:250
             Image{
-                id:singleButton_image
+                id: beginButton_image
                 source: "../../assets/background/bottonBackground.png"
+
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
                 MouseArea{
                     anchors.fill:parent
                     onEntered:{
-                        singleButton_image.source = "../../assets/background/buttonBackground2.png"
-                        singleText.color="#7B0E01"
+                        beginButton_image.source = "../../assets/background/buttonBackground2.png"
+                        beginText.color="#7B0E01"
                     }
                     onExited: {
-                        singleButton_image.source ="../../assets/background/bottonBackground.png"
-                        singleText.color="black"
+                        beginButton_image.source ="../../assets/background/bottonBackground.png"
+                        beginText.color="black"
                     }
 
                     onPressed: {
-                        singleButton.opacity =0.5
+                        beginButton.opacity =0.5
                     }
                     onReleased: {
-                        singleButton.opacity =1
+                        beginButton.opacity =1
                     }
                 }
                 Text {
-                    id: singleText
-                    text: qsTr("SingleFight")
+                    id: beginText
+                    text: qsTr("Play")
                     font.bold: true
                     font.pixelSize: 20
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
             }
+            onClicked: beginGamePressed()
         }
 
         MenuButton{
-            id:doubleButton
-            width:130
-            height: 50
+            id:closeButton
+            width:70
+            height: 30
+            x:200
+            y:300
             Image{
-                id:doubleButton_image
+                id:closeButton_image
                 source: "../../assets/background/bottonBackground.png"
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
                 MouseArea{
                     anchors.fill:parent
                     onEntered:{
-                        doubleButton_image.source = "../../assets/background/buttonBackground2.png"
-                        doubleText.color="#7B0E01"
+                        closeButton_image.source = "../../assets/background/buttonBackground2.png"
+                        closeText.color="#7B0E01"
+
                     }
                     onExited: {
-                        doubleButton_image.source ="../../assets/background/bottonBackground.png"
-                        doubleText.color="black"
+                        closeButton_image.source ="../../assets/background/bottonBackground.png"
+                        closeText.color="black"
                     }
 
                     onPressed: {
-                        doubleButton.opacity =0.5
+                        closeButton.opacity =0.5
                     }
                     onReleased: {
-                        doubleButton.opacity =1
+                        closeButton.opacity =1
                     }
                 }
                 Text {
-                    id: doubleText
-                    text: qsTr("DoubleFight")
+                    id: closeText
+                    text: qsTr("Exit")
                     font.bold: true
                     font.pixelSize: 20
-                    font.family: standardFont.name
+                    font.family:standardFont.name
                     anchors.centerIn: parent
                 }
             }
-
+            onClicked: closeGamePressed()
         }
 
         MenuButton{
-            id:aiButton
-            width:130
-            height: 50
+            id:setButton
+            width:70
+            height: 30
+            x:200
+            y:350
             Image{
-                id:aiButton_image
+                id:setButton_image
                 source: "../../assets/background/bottonBackground.png"
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
                 MouseArea{
                     anchors.fill:parent
                     onEntered:{
-                        aiButton_image.source = "../../assets/background/buttonBackground2.png"
-                        aiText.color="#7B0E01"
+                        setButton_image.source = "../../assets/background/buttonBackground2.png"
+                        setText.color="#7B0E01"
                     }
                     onExited: {
-                        aiButton_image.source ="../../assets/background/bottonBackground.png"
-                        aiText.color="black"
+                        setButton_image.source ="../../assets/background/bottonBackground.png"
+                        setText.color="black"
                     }
 
                     onPressed: {
-                        aiButton.opacity =0.5
+                        setButton.opacity =0.5
                     }
                     onReleased: {
-                        aiButton.opacity =1
+                        setButton.opacity =1
                     }
                 }
                 Text {
-                    id: aiText
-                    text: qsTr("DoubleFight")
+                    id: setText
+                    text: qsTr("Set")
                     font.bold: true
                     font.pixelSize: 20
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
             }
-
+            onClicked: setGamePressed()
         }
 
         MenuButton{
-            id:backButton
-            width:130
-            height: 50
+            id:helpButton
+            width:70
+            height: 30
+            x:200
+            y:400
             Image{
-                id:backButton_image
+                id: helpButton_image
                 source: "../../assets/background/bottonBackground.png"
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
                 MouseArea{
                     anchors.fill:parent
                     onEntered:{
-                        backButton_image.source = "../../assets/background/buttonBackground2.png"
-                        backText.color="#7B0E01"
+                        helpButton_image.source = "../../assets/background/buttonBackground2.png"
+                        helpText.color="#7B0E01"
                     }
                     onExited: {
-                        backButton_image.source ="../../assets/background/bottonBackground.png"
-                        backText.color="black"
+                        helpButton_image.source ="../../assets/background/bottonBackground.png"
+                        helpText.color="black"
                     }
 
                     onPressed: {
-                        backButton.opacity =0.5
+                        helpButton.opacity =0.5
                     }
                     onReleased: {
-                        backButton.opacity =1
+                        helpButton.opacity =1
                     }
                 }
                 Text {
-                    id: backText
-                    text: qsTr("Back")
+                    id: helpText
+                    text: qsTr("Help")
                     font.bold: true
                     font.pixelSize: 20
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
             }
-
+            onClicked: helpGamePressed()
         }
     }
 }

@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+import Felgo 3.0
 Rectangle {
     id: button
     // this will be the default size, it is same size as the contained text + some padding
