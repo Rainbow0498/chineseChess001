@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Felgo 3.0
 import "../common"
 
-Scene {
+SceneBase {
     id: menuScene
 
     // background
@@ -166,7 +166,7 @@ Scene {
                         backButton_image.source ="../../assets/background/bottonBackground.png"
                         backText.color="black"
                     }
-
+                    onClicked: backButtonPressed()
                     onPressed: {
                         backButton.opacity =0.5
                     }
