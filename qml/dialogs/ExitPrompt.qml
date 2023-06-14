@@ -9,9 +9,9 @@ import "../scenes"
 
 Item {
     id:exitPrompt
-    width:300
- //   height:content.height+content.anchors.topMargin*2
-    height:300
+    width:200
+      height:content.height+content.anchors.topMargin*2
+    //height:200
     z:110
 
     anchors.centerIn: parent
@@ -19,8 +19,8 @@ Item {
     //dark BackgroundImage
     Rectangle{
         anchors.centerIn: parent
-        width:parent.width*2
-        height:parent.height*2
+        width:parent.width*6
+        height:parent.height*6
         color: "black"
         opacity: 0.3
         radius: 30
@@ -33,39 +33,37 @@ Item {
     Rectangle{
         id:exitRect
         radius: 30
+        width:parent.width/2
+        height:parent.height/2
         anchors.fill: parent
         color:"lightblue"
-        border.color: "lightblue"
-        border.width: 5
+    //    border.color: "lightblue"
+    //    border.width: 5
         opacity: 0.7
-    }
- /*   BackgroundImage{
-        source: "../../assets/background/checkerboard-back2.png"
-        fillMode: Image.PreserveAspectCrop
-        anchors.fill: parent
-        opacity: 0.7
+//        BackgroundImage{
+//         source: "../../assets/background/checkerboard-back2.png"
+//         fillMode: Image.PreserveAspectCrop
+//         anchors.fill: parent
+//         opacity: 0.7
+//         clip: true
 
-        OpacityMask {
-            anchors.fill: parent
-            source: nameIamge
-            maskSource: mask
-        }
-
+//     }
     }
-*/
+
+
     Column{
         id:content
         width:parent.width
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-//        anchors.margins: 40
+        //        anchors.margins: 40
         anchors.leftMargin: 40
         anchors.rightMargin: 40
         spacing: 20
 
         Text {
             id: titleText
-//            horizontalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
             text: "Exit Prompt"
             color: "black"
@@ -73,27 +71,27 @@ Item {
             font.family: standardFont.name
             width: parent.width * 0.8
             wrapMode: Text.Wrap
-            anchors.centerIn: parent
-            anchors.top: parent.top
-         }
-    //exit text
-    Text {
-        id: promptText
-        horizontalAlignment: Text.AlignHCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: "You are about to quit the game,please choose whether to quit."
-        color: "black"
-        font.pixelSize: 24
-        font.family: standardFont.name
-        width: parent.width * 0.8
-        wrapMode: Text.Wrap
-//        anchors.centerIn: parent
-        anchors.bottom: parent.bottom
-     }
+     //       anchors.centerIn: parent
+     //       anchors.top: parent.top
+        }
+        //exit text
+        Text {
+            id: promptText
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Are you sure quit the game?"
+            color: "black"
+            font.pixelSize: 24
+            font.family: standardFont.name
+            width: parent.width * 0.8
+            wrapMode: Text.Wrap
+            //        anchors.centerIn: parent
+    //        anchors.bottom: parent.bottom
+        }
 
-  }
+    }
     // button to close the window
-      MenuButton {
+    MenuButton {
         anchors.right: parent.right
         anchors.top: parent.bottom
         anchors.topMargin: 10
@@ -103,10 +101,10 @@ Item {
         paddingVertical: 4
         text: "Cancel"
         onClicked: exitPrompt.visible = false
-      }
+    }
 
-      // button to leave the game
-      MenuButton {
+    // button to leave the game
+    MenuButton {
         anchors.left: parent.left
         anchors.top: parent.bottom
         anchors.topMargin: 10
@@ -116,10 +114,10 @@ Item {
         paddingVertical: 4
         text: "Quit"
         onClicked: {
-        //  backButtonPressed()
-        //  exitPrompt.visible = false
+            //  backButtonPressed()
+            //  exitPrompt.visible = false
             gameWindow.visible=false
         }
-      }
+    }
 
 }
