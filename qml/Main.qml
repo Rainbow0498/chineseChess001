@@ -3,6 +3,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 
 import "scenes"
+import "dialogs"
 GameWindow {
     id: gameWindow
     screenWidth: 540
@@ -16,7 +17,7 @@ GameWindow {
       source: "fonts/bubblegum.ttf"
     }
 
-    SettingScene{
+    ExitPrompt{
 
     }
 }
