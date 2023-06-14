@@ -2,8 +2,8 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
 import Felgo 3.0
-
-Scene{
+import "../common"
+SceneBase{
     Rectangle {
         id:mainWindow
         anchors.fill: parent.gameWindowAnchorItem
@@ -14,6 +14,46 @@ Scene{
             anchors.fill: parent
         }
     }
+
+    MenuButton{
+        id:backButton
+        width:130
+        height: 50
+        Image{
+            id:backButton_image
+            source: "../../assets/background/bottonBackground.png"
+            fillMode: Image.PreserveAspectCrop
+            anchors.fill: parent
+            MouseArea{
+                anchors.fill:parent
+                onEntered:{
+                    backButton_image.source = "../../assets/background/buttonBackground2.png"
+                    backText.color="#7B0E01"
+                }
+                onExited: {
+                    backButton_image.source ="../../assets/background/bottonBackground.png"
+                    backText.color="black"
+                }
+                onClicked: backButtonPressed()
+                onPressed: {
+                    backButton.opacity =0.5
+                }
+                onReleased: {
+                    backButton.opacity =1
+                }
+            }
+            Text {
+                id: backText
+                text: qsTr("Back")
+                font.bold: true
+                font.pixelSize: 20
+                font.family: standardFont.name
+                anchors.centerIn: parent
+            }
+        }
+
+    }
+
     Text {
         id: settingText
         anchors.top: parent.top

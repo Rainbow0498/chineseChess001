@@ -14,10 +14,78 @@ GameWindow {
     }
     FontLoader {
       id: standardFont
-      source: "fonts/bubblegum.ttf"
+      source: "../assets/fonts/bubblegum.ttf"
     }
 
-    ExitPrompt{
+    MenuScene{
+        id:menuScene
+        onBackButtonPressed: gameWindow.state ="main"
+    }
+
+    HelpScene{
+        id:helpScene
+        onBackButtonPressed: gameWindow.state ="main"
+    }
+
+    MainScene{
+        id:mainScene
+
+        onBeginGamePressed: gameWindow.state = "menu"
+//        onBeginGamePressed:gameWindow.state = "menu"
+//        onCloseGamePressed: gameWindow.state = "close"
+        onHelpGamePressed: gameWindow.state = "help"
+        onSetGamePressed: gameWindow.state = "set"
 
     }
+
+
+
+    state: "main"
+
+    states:[
+        State{
+            name:"main"
+            PropertyChanges {
+                target: mainScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:mainScene
+            }
+        },
+        State{
+            name:"menu"
+            PropertyChanges {
+                target: menuScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:menuScene
+            }
+        },
+        State{
+            name:"help"
+            PropertyChanges {
+                target: helpScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:helpScene
+            }
+        },
+        State{
+            name:"set"
+            PropertyChanges {
+                target: settingScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:settingScene
+            }
+        }
+    ]
 }

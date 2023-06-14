@@ -4,7 +4,7 @@ import QtQuick.Controls 2.15
 import Felgo 3.0
 import "../common"
 
-Scene{
+SceneBase{
     id:helpscene
 
     Rectangle {
@@ -80,7 +80,7 @@ Scene{
                         backButton_image.source ="../../assets/background/bottonBackground.png"
                         backText.color="black"
                     }
-
+                    onClicked: backButtonPressed()
                     onPressed: {
                         backButton.opacity =0.5
                     }

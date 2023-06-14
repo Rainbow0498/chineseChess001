@@ -2,20 +2,21 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import Felgo 3.0
 import"../common"
-Scene {
+SceneBase {
     id: mainScene
     signal beginGamePressed
     signal closeGamePressed
     signal setGamePressed
     signal helpGamePressed
 
-    Rectangle {
-        id:mainWindow
-        anchors.fill: parent.gameWindowAnchorItem
+//    Rectangle {
+//        id:mainWindow
+//        anchors.fill: parent.gameWindowAnchorItem
         BackgroundImage{
+            anchors.fill: parent.gameWindowAnchorItem
             source: "../../assets/background/background-image.png"
             fillMode: Image.PreserveAspectCrop
-            anchors.fill: parent
+//            anchors.fill: parent
         }
 
         //two functionButton
@@ -42,6 +43,8 @@ Scene {
                         beginText.color="black"
                     }
 
+                    onClicked: beginGamePressed()
+
                     onPressed: {
                         beginButton.opacity =0.5
                     }
@@ -58,7 +61,7 @@ Scene {
                     anchors.centerIn: parent
                 }
             }
-            onClicked: beginGamePressed()
+
         }
 
         MenuButton{
@@ -83,7 +86,7 @@ Scene {
                         closeButton_image.source ="../../assets/background/bottonBackground.png"
                         closeText.color="black"
                     }
-
+                    onClicked: closeGamePressed()
                     onPressed: {
                         closeButton.opacity =0.5
                     }
@@ -100,7 +103,7 @@ Scene {
                     anchors.centerIn: parent
                 }
             }
-            onClicked: closeGamePressed()
+
         }
 
         MenuButton{
@@ -124,7 +127,7 @@ Scene {
                         setButton_image.source ="../../assets/background/bottonBackground.png"
                         setText.color="black"
                     }
-
+                    onClicked: setGamePressed()
                     onPressed: {
                         setButton.opacity =0.5
                     }
@@ -141,7 +144,7 @@ Scene {
                     anchors.centerIn: parent
                 }
             }
-            onClicked: setGamePressed()
+
         }
 
         MenuButton{
@@ -165,7 +168,7 @@ Scene {
                         helpButton_image.source ="../../assets/background/bottonBackground.png"
                         helpText.color="black"
                     }
-
+                    onClicked: helpGamePressed()
                     onPressed: {
                         helpButton.opacity =0.5
                     }
@@ -182,7 +185,7 @@ Scene {
                     anchors.centerIn: parent
                 }
             }
-            onClicked: helpGamePressed()
+
         }
     }
-}
+//}
