@@ -16,7 +16,7 @@ GameWindow {
       source: "fonts/bubblegum.ttf"
     }
 
-    SetScene{
+    SettingScene{
 
     }
 }

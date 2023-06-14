@@ -60,4 +60,4 @@ macx {
 }
 
 DISTFILES += \
-    qml/scenes/SetScene.qml
+    qml/scenes/SettingScene.qml
