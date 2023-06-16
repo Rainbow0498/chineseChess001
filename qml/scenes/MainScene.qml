@@ -1,3 +1,7 @@
+//Author:tangyu
+//Date:2023.6.12
+//Function:mainWindow
+
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import Felgo 3.0

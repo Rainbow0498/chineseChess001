@@ -1,3 +1,7 @@
+//Author:tangyu
+//Date:2023.6.13
+//Function:helpWindow
+
 import QtQuick 2.15
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.15
@@ -63,13 +67,16 @@ SceneBase{
             id:backButton
             width:70
             height: 30
-            x:30
-            y:30
+            anchors.left:parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 20
+            anchors.topMargin: 20
             Image{
                 id:backButton_image
                 source: "../../assets/background/bottonBackground.png"
                 fillMode: Image.PreserveAspectCrop
                 anchors.fill: parent
+
                 MouseArea{
                     anchors.fill:parent
                     onEntered:{
@@ -88,14 +95,15 @@ SceneBase{
                         backButton.opacity =1
                     }
                 }
-                Text {
-                    id: backText
-                    text: qsTr("Back")
-                    font.bold: true
-                    font.pixelSize: 20
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
-                }
+            }
+            Text {
+                id: backText
+                text: qsTr("Back")
+                padding: 10
+                font.bold: true
+                font.pixelSize: 20
+                font.family: standardFont.name
+                anchors.centerIn: parent
             }
 
         }

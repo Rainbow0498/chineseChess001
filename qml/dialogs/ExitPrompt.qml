@@ -1,3 +1,7 @@
+//Author: daixin
+//Date:2023.6.14
+//Function:notify whether quit the game
+
 import QtQuick 2.0
 import Felgo 3.0
 import QtGraphicalEffects 1.13

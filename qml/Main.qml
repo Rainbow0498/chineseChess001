@@ -1,3 +1,6 @@
+//Author:yangyunbo
+//Date:2023.6.15
+//Function:every scene switch
 import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Controls 2.0
@@ -6,7 +9,7 @@ import "scenes"
 import "dialogs"
 GameWindow {
     id: gameWindow
-    screenWidth: 540
+    screenWidth: 640
     screenHeight: 960
 
     EntityManager {
@@ -19,6 +22,11 @@ GameWindow {
 
     MenuScene{
         id:menuScene
+        onLevelPressed: {
+            playScene.setLevel(selectedLevel)
+            gameWindow.state = "play"
+        }
+
         onBackButtonPressed: gameWindow.state ="main"
     }
 
@@ -31,13 +39,20 @@ GameWindow {
         id:mainScene
 
         onBeginGamePressed: gameWindow.state = "menu"
-//        onBeginGamePressed:gameWindow.state = "menu"
-//        onCloseGamePressed: gameWindow.state = "close"
         onHelpGamePressed: gameWindow.state = "help"
         onSetGamePressed: gameWindow.state = "set"
 
     }
 
+    SettingScene{
+        id:settingScene
+        onBackButtonPressed: gameWindow.state ="main"
+    }
+
+    PlayScene{
+        id:playScene
+        onBackButtonPressed: gameWindow.state ="menu"
+    }
 
 
     state: "main"
@@ -85,6 +100,17 @@ GameWindow {
             PropertyChanges {
                 target: gameWindow;
                 activeScene:settingScene
+            }
+        },
+        State{
+            name:"play"
+            PropertyChanges {
+                target: playScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:playScene
             }
         }
     ]

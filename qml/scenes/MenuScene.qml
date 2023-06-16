@@ -1,9 +1,15 @@
+//Author:tangyu
+//Date:2023.6.13
+//Function:menuWindow
+
 import QtQuick 2.0
 import Felgo 3.0
 import "../common"
 
 SceneBase {
     id: menuScene
+    //choose playMode
+    signal levelPressed(string selectedLevel)
 
     // background
     Rectangle {
@@ -50,7 +56,7 @@ SceneBase {
                         singleButton_image.source ="../../assets/background/bottonBackground.png"
                         singleText.color="black"
                     }
-
+                    onClicked: levelPressed("PlayOwnScene.qml")
                     onPressed: {
                         singleButton.opacity =0.5
                     }
@@ -88,7 +94,7 @@ SceneBase {
                         doubleButton_image.source ="../../assets/background/bottonBackground.png"
                         doubleText.color="black"
                     }
-
+                    onClicked: levelPressed("PlayDoubleScene.qml")
                     onPressed: {
                         doubleButton.opacity =0.5
                     }
@@ -127,7 +133,7 @@ SceneBase {
                         aiButton_image.source ="../../assets/background/bottonBackground.png"
                         aiText.color="black"
                     }
-
+                    onClicked: levelPressed("PlayAiScene.qml")
                     onPressed: {
                         aiButton.opacity =0.5
                     }

@@ -1,3 +1,5 @@
+//Function:Button to switch window
+
 import QtQuick 2.0
 import Felgo 3.0
 Rectangle {
@@ -9,7 +11,7 @@ Rectangle {
     color: "#e9e9e9"
     // round edges
     radius: 10
-
+    z:10
     // the horizontal margin from the Text element to the Rectangle at both the left and the right side.
     property int paddingHorizontal: 10
     // the vertical margin from the Text element to the Rectangle at both the top and the bottom side.
@@ -17,7 +19,8 @@ Rectangle {
 
     // access the text of the Text component
     property alias text: buttonText.text
-
+    property alias size:buttonText.font.pixelSize
+    property alias bold:buttonText.font.bold
     // this handler is called when the button is clicked.
     signal clicked
 
@@ -25,6 +28,7 @@ Rectangle {
         id: buttonText
         anchors.centerIn: parent
         font.pixelSize: 18
+        font.bold: false
         color: "black"
     }
 

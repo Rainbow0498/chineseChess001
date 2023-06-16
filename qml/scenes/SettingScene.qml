@@ -1,3 +1,7 @@
+//Author:daixin
+//Date:2023.6.14
+//Function:setWindow
+
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
@@ -17,8 +21,12 @@ SceneBase{
 
     MenuButton{
         id:backButton
-        width:130
-        height: 50
+        width:70
+        height: 30
+        anchors.left:parent.left
+        anchors.top: parent.top
+        anchors.leftMargin: 20
+        anchors.topMargin: 20
         Image{
             id:backButton_image
             source: "../../assets/background/bottonBackground.png"

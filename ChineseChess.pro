@@ -17,11 +17,11 @@ PRODUCT_VERSION_CODE = 1
 # Not used if using Felgo Live
 PRODUCT_LICENSE_KEY = ""
 
-qmlFolder.source = qml
-DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
+#qmlFolder.source = qml
+#DEPLOYMENTFOLDERS += qmlFolder # comment for publishing
 
-assetsFolder.source = assets
-DEPLOYMENTFOLDERS += assetsFolder
+#assetsFolder.source = assets
+#DEPLOYMENTFOLDERS += assetsFolder
 
 # Add more folders to ship with the application here
 
@@ -59,5 +59,20 @@ macx {
     ICON = macx/app_icon.icns
 }
 
-DISTFILES += \
-    qml/scenes/SettingScene.qml
+#DISTFILES += \
+#    qml/common/BlackBase.qml \
+#    qml/common/ButtonBase.qml \
+#    qml/common/PlayerBase.qml \
+#    qml/common/RedBase.qml \
+#    qml/entities/BlackCarChess.qml \
+#    qml/entities/Player1.qml \
+#    qml/entities/Player2.qml \
+#    qml/entities/RedCarChess.qml \
+#    qml/scenes/PlayAiScene.qml \
+#    qml/scenes/PlayDoubleScene.qml \
+#    qml/scenes/PlayOwnScene.qml \
+#    qml/scenes/PlayScene.qml \
+#    qml/scenes/SettingScene.qml
+
+RESOURCES += \
+    qml.qrc
