@@ -7,9 +7,7 @@ Rectangle {
     // this will be the default size, it is same size as the contained text + some padding
     width: buttonText.width+ paddingHorizontal*2
     height: buttonText.height+ paddingVertical*2
-
     color: "#e9e9e9"
-    // round edges
     radius: 10
     z:10
     // the horizontal margin from the Text element to the Rectangle at both the left and the right side.

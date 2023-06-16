@@ -8,6 +8,7 @@ import QtQuick.Layouts 1.2
 import Felgo 3.0
 import "../common"
 SceneBase{
+    id:settingScene
     Rectangle {
         id:mainWindow
         anchors.fill: parent.gameWindowAnchorItem
