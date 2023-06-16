@@ -6,6 +6,7 @@ import QtQuick 2.0
 import Felgo 3.0
 import "../common"
 import "../entities"
+import "../dialogs"
 // EMPTY SCENE
 
 SceneBase {
@@ -58,14 +59,20 @@ SceneBase {
       onClicked: leaveGame.visible = true
     }
 
+    ChooseRules{
+        anchors.centerIn: gameWindowAnchorItem
+        id: chooseRules
+        visible: false
+    }
+
     Loader{
         id:loader
-
         source:activeLevelFileName !==""? activeLevelFileName:""
         onLoaded:{
             item.width = playScene.width
             item.height = playScene.height
             activeLevel =item
+            chooseRules.visible = true
         }
     }
 
