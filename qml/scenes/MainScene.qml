@@ -11,9 +11,7 @@ SceneBase {
     signal setGamePressed
     signal helpGamePressed
 
-    //    Rectangle {
-    //        id:mainWindow
-    //        anchors.fill: parent.gameWindowAnchorItem
+
     BackgroundImage{
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/background/background-image.png"
@@ -199,4 +197,4 @@ SceneBase {
         exit.visible = true
     }
 }
-//}
+

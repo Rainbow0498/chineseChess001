@@ -6,99 +6,188 @@ import "../common"
 
 SceneBase{
     id:helpscene
-
+    property int currentPage: 0 // page indicator
     Rectangle {
         id:mainWindow
         anchors.fill: parent.gameWindowAnchorItem
+        anchors.centerIn: parent
 
+        //set backgroundImage
         BackgroundImage{
             source: "../../assets/background/checkerboard-back2.png"
             fillMode: Image.PreserveAspectCrop
             anchors.fill: parent
         }
 
-
-        Text {
-            id: helpText
-            anchors.top: parent.top
-            anchors.topMargin: 100
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("About")
-            font.bold: true
-            font.family: standardFont.name
-            font.pixelSize: 48
-        }
+        //main Content
         Rectangle{
-            height: 200
-            width:200
             color: "transparent"
-            anchors.centerIn: parent
-            ColumnLayout{
-                anchors.fill:parent
-                ScrollView{
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    TextArea {
-                        id: helpContent
-                        width: parent.width
-                        text: qsTr("This is a ChineseChess Game.You can play the game with your friend...
-                                        you can also choose to play yourself or play with AI,we really hope you can enjoy our game")
-                        font.family: "NSimSun"
+            anchors.fill: parent
+            MenuButton{
+                id:backButton
+                width:70
+                height: 30
+                x:20
+                y:30
+                Image{
+                    id:backButton_image
+                    source: "../../assets/background/bottonBackground.png"
+                    fillMode: Image.PreserveAspectCrop
+                    anchors.fill: parent
+                    MouseArea{
+                        anchors.fill:parent
+                        onEntered:{
+                            backButton_image.source = "../../assets/background/buttonBackground2.png"
+                            backText.color="#7B0E01"
+                        }
+                        onExited: {
+                            backButton_image.source ="../../assets/background/bottonBackground.png"
+                            backText.color="black"
+                        }
+                        onClicked: backButtonPressed()
+                        onPressed: {
+                            backButton.opacity =0.5
+                        }
+                        onReleased: {
+                            backButton.opacity =1
+                        }
+                    }
+                    Text {
+                        id: backText
+                        text: qsTr("Back")
                         font.bold: true
                         font.pixelSize: 20
-                        clip: true
-                        wrapMode: Text.Wrap
+                        font.family: standardFont.name
+                        anchors.centerIn: parent
                     }
                 }
-                ScrollBar{
-                    Layout.fillWidth: true
 
+            }
+            //a rowLayout contains two buttons and a text
+            RowLayout {
+                id:rowLayout
+                y:90
+                anchors.horizontalCenter: parent.horizontalCenter
+                MenuButton{
+                    id: prevPageButton
+                    width:60
+                    height: 30
+                    enabled: helpscene.currentPage > 0 // disable when on first page
+                    Image{
+                        id:prevPageButton_Image
+                        source: "../../assets/background/bottonBackground.png"
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.fill: parent
+                        MouseArea{
+                            anchors.fill:parent
+                            onEntered:{
+                                prevPageButton_Image.source = "../../assets/background/buttonBackground2.png"
+                                prevPageText.color="#7B0E01"
+                            }
+                            onExited: {
+                                prevPageButton_Image.source ="../../assets/background/bottonBackground.png"
+                                prevPageText.color="black"
+                            }
+                            onPressed: {
+                                prevPageButton.opacity =0.5
+                            }
+                            onReleased: {
+                                prevPageButton.opacity =1
+                            }
+                            onClicked: helpscene.currentPage--
+                        }
+                        Text {
+                            id: prevPageText
+                            text: qsTr("<")
+                            font.bold: true
+                            font.pixelSize: 20
+                            font.family: standardFont.name
+                            anchors.centerIn: parent
+                        }
+                    }
+                }
+
+                //center text
+                Text {
+                    id: helpText
+                    text: (helpscene.currentPage===0)?qsTr("About Game"):qsTr("About Chess")
+                    font.bold: true
+                    font.family: standardFont.name
+                    font.pixelSize: 32
+                }
+
+                MenuButton{
+                    id: nextPageButton
+                    width:60
+                    height: 30
+                    enabled: helpscene.currentPage < 1
+                    Image{
+                        id:nextPageButton_Image
+                        source: "../../assets/background/bottonBackground.png"
+                        fillMode: Image.PreserveAspectCrop
+                        anchors.fill: parent
+                        MouseArea{
+                            anchors.fill:parent
+                            onEntered:{
+                                nextPageButton_Image.source = "../../assets/background/buttonBackground2.png"
+                                nextPageText.color="#7B0E01"
+                            }
+                            onExited: {
+                                nextPageButton_Image.source ="../../assets/background/bottonBackground.png"
+                                nextPageText.color="black"
+                            }
+                            onPressed: {
+                                nextPageButton.opacity =0.5
+                            }
+                            onReleased: {
+                                nextPageButton.opacity =1
+                            }
+                            onClicked: helpscene.currentPage++
+                        }
+                        Text {
+                            id:nextPageText
+                            text: qsTr(">")
+                            font.bold: true
+                            font.pixelSize: 20
+                            font.family: standardFont.name
+                            anchors.centerIn: parent
+                        }
+                    }
                 }
             }
-
-        }
-
-
-        MenuButton{
-            id:backButton
-            width:70
-            height: 30
-            x:30
-            y:30
-            Image{
-                id:backButton_image
-                source: "../../assets/background/bottonBackground.png"
-                fillMode: Image.PreserveAspectCrop
-                anchors.fill: parent
-                MouseArea{
-                    anchors.fill:parent
-                    onEntered:{
-                        backButton_image.source = "../../assets/background/buttonBackground2.png"
-                        backText.color="#7B0E01"
-                    }
-                    onExited: {
-                        backButton_image.source ="../../assets/background/bottonBackground.png"
-                        backText.color="black"
-                    }
-                    onClicked: backButtonPressed()
-                    onPressed: {
-                        backButton.opacity =0.5
-                    }
-                    onReleased: {
-                        backButton.opacity =1
-                    }
-                }
-                Text {
-                    id: backText
-                    text: qsTr("Back")
+            ScrollView{
+                anchors.centerIn: parent
+                width:200
+                height:200
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                TextArea {
+                    id: helpContent1
+                    visible: helpscene.currentPage === 0 // Visible when currentPage is 0
+                    //width: parent.width
+                    text: qsTr("This is a ChineseChess Game.You can play the game with your friend...
+                                        you can also choose to play yourself or play with AI,we really hope you can enjoy our game")
+                    font.family: "NSimSun"
                     font.bold: true
                     font.pixelSize: 20
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
+                    clip: true
+                    wrapMode: Text.Wrap
+                }
+                TextArea {
+                    id: helpContent2
+                    visible: helpscene.currentPage === 1 // Visible when currentPage is 1
+                    // width: parent.width
+                    text: qsTr("ChineseChess is a traditional Chinese chess game...")
+                    font.family: "NSimSun"
+                    font.bold: true
+                    font.pixelSize: 20
+                    clip: true
+                    wrapMode: Text.Wrap
                 }
             }
-
+            ScrollBar{
+                Layout.fillWidth: true
+            }
         }
     }
-
 }

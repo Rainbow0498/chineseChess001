@@ -19,7 +19,7 @@ SceneBase {
     // the "logo"
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 70
+        y: 60
         font.pixelSize: 30
         color: "brown"
         font.bold: true
@@ -33,8 +33,8 @@ SceneBase {
         spacing: 20
         MenuButton{
             id:singleButton
-            width:130
-            height: 50
+            width:70
+            height: 30
             Image{
                 id:singleButton_image
                 source: "../../assets/background/bottonBackground.png"
@@ -50,7 +50,6 @@ SceneBase {
                         singleButton_image.source ="../../assets/background/bottonBackground.png"
                         singleText.color="black"
                     }
-
                     onPressed: {
                         singleButton.opacity =0.5
                     }
@@ -62,7 +61,7 @@ SceneBase {
                     id: singleText
                     text: qsTr("SingleFight")
                     font.bold: true
-                    font.pixelSize: 20
+                    font.pixelSize: 12
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
@@ -71,8 +70,8 @@ SceneBase {
 
         MenuButton{
             id:doubleButton
-            width:130
-            height: 50
+            width:70
+            height: 30
             Image{
                 id:doubleButton_image
                 source: "../../assets/background/bottonBackground.png"
@@ -100,18 +99,17 @@ SceneBase {
                     id: doubleText
                     text: qsTr("DoubleFight")
                     font.bold: true
-                    font.pixelSize: 20
+                    font.pixelSize: 12
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
             }
-
         }
 
         MenuButton{
             id:aiButton
-            width:130
-            height: 50
+            width:70
+            height: 30
             Image{
                 id:aiButton_image
                 source: "../../assets/background/bottonBackground.png"
@@ -139,18 +137,17 @@ SceneBase {
                     id: aiText
                     text: qsTr("DoubleFight")
                     font.bold: true
-                    font.pixelSize: 20
+                    font.pixelSize: 12
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
             }
-
         }
 
         MenuButton{
             id:backButton
-            width:130
-            height: 50
+            width:70
+            height: 30
             Image{
                 id:backButton_image
                 source: "../../assets/background/bottonBackground.png"
@@ -178,12 +175,11 @@ SceneBase {
                     id: backText
                     text: qsTr("Back")
                     font.bold: true
-                    font.pixelSize: 20
+                    font.pixelSize: 12
                     font.family: standardFont.name
                     anchors.centerIn: parent
                 }
             }
-
         }
     }
 }
