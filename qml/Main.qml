@@ -4,6 +4,8 @@
 import Felgo 3.0
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtMultimedia 5.0
+
 import "scenes"
 import "dialogs"
 
@@ -34,6 +36,7 @@ GameWindow {
         id:helpScene
         onBackButtonPressed: gameWindow.state ="main"
     }
+
 
     MainScene{
         id:mainScene
@@ -114,4 +117,31 @@ GameWindow {
             }
         }
     ]
+
+//    // background music
+//    BackgroundMusic {
+//      volume: 0.20
+//      id: ambienceMusic
+//      source: "../../..."
+//    }
+
+    MediaPlayer{
+            id:musicPlayer
+            source: "../assets/audio/BG.mp3"
+            volume: 0.5
+            autoPlay: false
+            loops:MediaPlayer.Infinite
+        }
+
+    // timer plays the background music
+    Timer {
+      id: timerMusic
+      interval: 100
+      running: true
+      repeat: true
+      onTriggered: {
+        musicPlayer.play()
+        running = false
+      }
+    }
 }

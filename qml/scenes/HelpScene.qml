@@ -18,6 +18,7 @@ SceneBase{
 
         //set backgroundImage
         BackgroundImage{
+            id:helpBackgroungImage
             source: "../../assets/background/checkerboard-back2.png"
             fillMode: Image.PreserveAspectCrop
             anchors.fill: parent
@@ -200,4 +201,10 @@ SceneBase{
             }
         }
     }
+
+    //change the help background image
+    function changeHelpImage(str){
+        helpBackgroungImage.source = str;
+   }
+
 }

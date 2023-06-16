@@ -40,10 +40,10 @@ Item {
         width:parent.width/2
         height:parent.height/2
         anchors.fill: parent
-        color:"lightblue"
+        color:"#FAEBD7"
     //    border.color: "lightblue"
     //    border.width: 5
-        opacity: 0.7
+        opacity: 0.9
 //        BackgroundImage{
 //         source: "../../assets/background/checkerboard-back2.png"
 //         fillMode: Image.PreserveAspectCrop
@@ -118,9 +118,8 @@ Item {
         paddingVertical: 4
         text: "Quit"
         onClicked: {
-            //  backButtonPressed()
-            //  exitPrompt.visible = false
-            gameWindow.visible=false
+            gameWindow.visible=false  //close the game
+            musicPlayer.pause();
         }
     }
 

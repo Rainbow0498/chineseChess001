@@ -60,6 +60,7 @@ macx {
 }
 
 #DISTFILES += \
+
 #    qml/common/BlackBase.qml \
 #    qml/common/ButtonBase.qml \
 #    qml/common/PlayerBase.qml \
@@ -76,3 +77,4 @@ macx {
 
 RESOURCES += \
     qml.qrc
+

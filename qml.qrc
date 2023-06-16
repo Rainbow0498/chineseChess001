@@ -70,6 +70,7 @@
         <file>qml/entities/BlackShuaiChess.qml</file>
         <file>qml/entities/BlackShiChess.qml</file>
         <file>qml/entities/BlackEleChess.qml</file>
+        <file>assets/audio/BG.mp3</file>
         <file>qml/dialogs/ChooseRules.qml</file>
     </qresource>
 </RCC>

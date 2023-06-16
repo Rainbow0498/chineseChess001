@@ -15,12 +15,16 @@ SceneBase {
     signal setGamePressed
     signal helpGamePressed
 
+    //    Rectangle {
+    //        id:mainWindow
+    //        anchors.fill: parent.gameWindowAnchorItem
 
     BackgroundImage{
+        id:backgroundImage
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/background/background-image.png"
         fillMode: Image.PreserveAspectCrop
-        //            anchors.fill: parent
+
     }
 
     //two functionButton
@@ -200,5 +204,6 @@ SceneBase {
     {
         exit.visible = true
     }
+
 }
 

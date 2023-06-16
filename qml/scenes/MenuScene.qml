@@ -16,8 +16,9 @@ SceneBase {
         border.color: "red"
         anchors.fill: parent.gameWindowAnchorItem
         Image{
+            id:menuBackgroundImage
             source: "../../assets/background/background-image2.png"
-            fillMode: Image.PreserveAspectCrop
+            fillMode:Image.PreserveAspectCrop
             anchors.fill: parent
         }
     }
@@ -191,4 +192,8 @@ SceneBase {
             }
         }
     }
+    //change the menu background image
+    function changeMenuImage(str){
+        menuBackgroundImage.source = str;
+   }
 }
