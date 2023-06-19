@@ -21,7 +21,7 @@ Item {
             if(second==0)
             {
                 minute -=1;
-                second =60;
+                second =59;
             }
         }
     }

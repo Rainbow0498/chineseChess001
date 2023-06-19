@@ -9,7 +9,16 @@ RedBase {
     id:redHorseChess
     entityId: "redHorseChess"
     entityType: "boxEntity"
-
+    index: 3
     source: "../../assets/red/RM.png"
 
+    MouseArea{
+        anchors.fill:parent
+        onClicked:{
+            mouse.accepted =false
+            if(mouse.button===Qt.LeftButton){
+                gameLogic.setChessPos(parent.x,parent.y,camp,index)
+            }
+        }
+    }
 }

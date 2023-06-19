@@ -95,6 +95,7 @@ Item {
                 player1.second = parseInt(secondStep.currentText)
                 player2.minute = parseInt(minuteStep.currentText)
                 player2.second = parseInt(secondStep.currentText)
+                gameLogic.initGame()
 
                 chooseRules.visible = false
             }

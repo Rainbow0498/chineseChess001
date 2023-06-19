@@ -9,7 +9,7 @@ BlackBase {
     id:blackEleChess
     entityId: "blackEleChess"
     entityType: "boxEntity"
-
+    index: 2
     source: "../../assets/black/BX.png"
 
 }

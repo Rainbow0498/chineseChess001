@@ -25,7 +25,7 @@ GameWindow {
     MenuScene{
         id:menuScene
         onLevelPressed: {
-            playScene.setLevel(selectedLevel)
+//            playScene.setLevel(selectedLevel)
             gameWindow.state = "play"
         }
 

@@ -72,5 +72,6 @@
         <file>qml/entities/BlackEleChess.qml</file>
         <file>assets/audio/BG.mp3</file>
         <file>qml/dialogs/ChooseRules.qml</file>
+        <file>qml/scenes/GameLogic.qml</file>
     </qresource>
 </RCC>
