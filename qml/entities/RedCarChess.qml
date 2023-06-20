@@ -11,19 +11,4 @@ RedBase {
     entityType: "boxEntity"
     index: 4
     source: "../../assets/red/RC.png"
-//    TapHandler{
-//        onTapped: {
-//            gameLogic.setChessPos(parent.x,parent.y,camp,index)
-//        }
-//    }
-
-    MouseArea{
-        anchors.fill:parent
-        onClicked:{
-            mouse.accepted =false
-            if(mouse.button===Qt.LeftButton){
-                gameLogic.setChessPos(parent.x,parent.y,camp,index)
-            }
-        }
-    }
 }

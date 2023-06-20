@@ -1,3 +1,6 @@
+//Author:yangyunbo
+//Date:2023.6.17
+//Function:make the play rules
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 import "../common"
@@ -71,9 +74,6 @@ Item {
                 }
 
             }
-
-            // points lost text
-
         }
 
         // button to leave the game

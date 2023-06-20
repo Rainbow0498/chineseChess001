@@ -15,17 +15,17 @@ GameWindow {
     screenHeight: 960
 
     EntityManager {
-      id: entityManager
+        id: entityManager
     }
     FontLoader {
-      id: standardFont
-      source: "../assets/fonts/bubblegum.ttf"
+        id: standardFont
+        source: "../assets/fonts/bubblegum.ttf"
     }
 
     MenuScene{
         id:menuScene
         onLevelPressed: {
-//            playScene.setLevel(selectedLevel)
+            //            playScene.setLevel(selectedLevel)
             gameWindow.state = "play"
         }
 
@@ -118,30 +118,30 @@ GameWindow {
         }
     ]
 
-//    // background music
-//    BackgroundMusic {
-//      volume: 0.20
-//      id: ambienceMusic
-//      source: "../../..."
-//    }
+    //    // background music
+    //    BackgroundMusic {
+    //      volume: 0.20
+    //      id: ambienceMusic
+    //      source: "../../..."
+    //    }
 
     MediaPlayer{
-            id:musicPlayer
-            source: "../assets/audio/BG.mp3"
-            volume: 0.5
-            autoPlay: false
-            loops:MediaPlayer.Infinite
-        }
+        id:musicPlayer
+        source: "../assets/audio/BG.mp3"
+        volume: 0.5
+        autoPlay: false
+        loops:MediaPlayer.Infinite
+    }
 
     // timer plays the background music
     Timer {
-      id: timerMusic
-      interval: 100
-      running: true
-      repeat: true
-      onTriggered: {
-        musicPlayer.play()
-        running = false
-      }
+        id: timerMusic
+        interval: 100
+        running: true
+        repeat: true
+        onTriggered: {
+            musicPlayer.play()
+            running = false
+        }
     }
 }

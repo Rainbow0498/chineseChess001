@@ -8,7 +8,7 @@ import Felgo 3.0
 Item {
     id:player
     property string time:minute +" minute: "+second+" second"
-
+//    property alias timeStart:Timer
     property int minute
     property int second
 

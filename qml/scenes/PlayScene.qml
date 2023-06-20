@@ -4,6 +4,7 @@
 
 import QtQuick 2.0
 import Felgo 3.0
+import QtMultimedia 5.15
 import "../common"
 import "../entities"
 import "../dialogs"
@@ -128,11 +129,34 @@ SceneBase {
             propagateComposedEvents: true
 
             onClicked:{
-//                mouse.accepted =false
+                //                mouse.accepted =false
                 if(mouse.button===Qt.LeftButton){
                     console.log("鼠标移动坐标:"+(mouseX)+":"+(mouseY))
                     gameLogic.getChoosePos(mouseX,mouseY)
-//                    console.log("鼠标左键按下")
+                    //                    console.log("鼠标左键按下")
+                }
+            }
+        }
+
+        SpriteSequence{
+            id:checkerboardChoose
+            width:68
+            height:68
+            visible: false
+            Sprite{
+                name:"select1"
+                source: "../../assets/select/slected.png"
+                frameDuration: 300
+                to:{
+                    "select2":1
+                }
+            }
+            Sprite{
+                name:"select2"
+                source: "../../assets/select/wait.png"
+                frameDuration: 300
+                to:{
+                    "select1":1
                 }
             }
         }
@@ -140,17 +164,26 @@ SceneBase {
     }
 
     ButtonBase {
-      id: backButton
-      width: 50
-      height: 50
-      buttonImage.source: "../../assets/background/Home.png"
-      anchors.right: gameWindowAnchorItem.right
-      anchors.rightMargin: 20
-      anchors.top: gameWindowAnchorItem.top
-      anchors.topMargin: 20
-      onClicked: leaveGame.visible = true
+        id: backButton
+        width: 50
+        height: 50
+        buttonImage.source: "../../assets/background/Home.png"
+        anchors.right: gameWindowAnchorItem.right
+        anchors.rightMargin: 20
+        anchors.top: gameWindowAnchorItem.top
+        anchors.topMargin: 20
+        onClicked: leavePlay.visible = true
     }
 
+    Image {
+        id: jiangjun
+        width: 100
+        height:100
+        anchors.centerIn: gameWindowAnchorItem
+        fillMode: Image.PreserveAspectCrop
+        source: "../../assets/check/jiang.png"
+        visible: false
+    }
 
     GameLogic{
         id:gameLogic
@@ -159,12 +192,35 @@ SceneBase {
     ChooseRules{
         anchors.centerIn: gameWindowAnchorItem
         id: chooseRules
+    }
 
+    CannotMove{
+        id:cannotMove
+        anchors.centerIn: gameWindowAnchorItem
+    }
+
+    LeavePlay{
+        id:leavePlay
+        anchors.centerIn: gameWindowAnchorItem
+    }
+
+    MediaPlayer{
+        id:eatMusic
+        source: "../../assets/audio/eatChess.wav"
+        volume: 0.5
+        autoPlay: false
+    }
+
+    MediaPlayer{
+        id:jiangJunMusic
+        source: "../../assets/audio/JiangJun.wav"
+        volume: 0.5
+        autoPlay: false
     }
 
     Loader{
         id:loader
-//        source:activeLevelFileName !==""? activeLevelFileName:""
+        //        source:activeLevelFileName !==""? activeLevelFileName:""
         onLoaded:{
 
             chooseRules.visible = true
