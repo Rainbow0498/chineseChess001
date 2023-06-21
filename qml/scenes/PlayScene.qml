@@ -2,7 +2,7 @@
 //Date:2023.6.15
 //Function:playScene baseItem with player1 and player2's name and step and every step time
 
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 import QtMultimedia 5.15
 import "../common"
@@ -59,82 +59,74 @@ SceneBase {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        BlackCarChess{ id:blackCar1 }
+        BlackCarChess{ id:blackCar1;index :4 }
 
-        BlackCarChess{ id:blackCar2 }
+        BlackCarChess{ id:blackCar2;index :8 }
 
-        BlackBingChess{ id:blackBing1 }
+        BlackBingChess{ id:blackBing1;index :11 }
 
-        BlackBingChess{ id:blackBing2 }
+        BlackBingChess{ id:blackBing2;index :12 }
 
-        BlackBingChess{ id:blackBing3 }
+        BlackBingChess{ id:blackBing3;index :13 }
 
-        BlackBingChess{ id:blackBing4 }
+        BlackBingChess{ id:blackBing4;index :14 }
 
-        BlackBingChess{ id:blackBing5 }
+        BlackBingChess{ id:blackBing5 ;index :15}
 
-        BlackEleChess{ id:blackEle1 }
+        BlackEleChess{ id:blackEle1;index :2 }
 
-        BlackEleChess{ id:blackEle2 }
+        BlackEleChess{ id:blackEle2;index :6 }
 
-        BlackHorseChess{ id:blackHorse1 }
+        BlackHorseChess{ id:blackHorse1;index :3 }
 
-        BlackHorseChess{ id:blackHorse2 }
+        BlackHorseChess{ id:blackHorse2;index :7 }
 
-        BlackShiChess{ id:blackShi1 }
+        BlackShiChess{ id:blackShi1;index :1 }
 
-        BlackShiChess{ id:blackShi2 }
+        BlackShiChess{ id:blackShi2;index :5 }
 
-        BlackShuaiChess{ id:blackShuai }
+        BlackShuaiChess{ id:blackShuai;index :0}
 
-        BlackGunChess{ id:blackGun1 }
+        BlackGunChess{ id:blackGun1;index :9 }
 
-        BlackGunChess{ id:blackGun2 }
+        BlackGunChess{ id:blackGun2;index :10 }
 
-        RedCarChess{ id:redCar1 }
+        RedCarChess{ id:redCar1;index :4 }
 
-        RedCarChess{ id:redCar2 }
+        RedCarChess{ id:redCar2;index :8 }
 
-        RedEleChess{ id:redEle1 }
+        RedEleChess{ id:redEle1;index :2 }
 
-        RedEleChess{ id:redEle2 }
+        RedEleChess{ id:redEle2;index :6 }
 
-        RedGunChess{ id:redGun1 }
+        RedGunChess{ id:redGun1;index :9 }
 
-        RedGunChess{ id:redGun2 }
+        RedGunChess{ id:redGun2;index :10 }
 
-        RedHorseChess{ id:redHorse1 }
+        RedHorseChess{ id:redHorse1;index :3 }
 
-        RedHorseChess{ id:redHorse2 }
+        RedHorseChess{ id:redHorse2;index :7 }
 
-        RedShiChess{ id:redShi1 }
+        RedShiChess{ id:redShi1;index :1 }
 
-        RedShiChess{ id:redShi2 }
+        RedShiChess{ id:redShi2;index :5 }
 
-        RedShuaiChess{ id:redShuai }
+        RedShuaiChess{ id:redShuai;index :0 }
 
-        RedBingChess{ id:redBing1 }
+        RedBingChess{ id:redBing1;index :11 }
 
-        RedBingChess{ id:redBing2 }
+        RedBingChess{ id:redBing2;index :12 }
 
-        RedBingChess{ id:redBing3 }
+        RedBingChess{ id:redBing3;index :13 }
 
-        RedBingChess{ id:redBing4 }
+        RedBingChess{ id:redBing4;index :14 }
 
-        RedBingChess{ id:redBing5 }
+        RedBingChess{ id:redBing5;index :15 }
 
-        MouseArea{
+        TapHandler{
             id:checkerboardArea
-            anchors.fill: parent
-            propagateComposedEvents: true
-
-            onClicked:{
-                //                mouse.accepted =false
-                if(mouse.button===Qt.LeftButton){
-                    console.log("鼠标移动坐标:"+(mouseX)+":"+(mouseY))
-                    gameLogic.getChoosePos(mouseX,mouseY)
-                    //                    console.log("鼠标左键按下")
-                }
+            onSingleTapped: {
+                gameLogic.getChoosePos(point.position.x,point.position.y)
             }
         }
 
@@ -222,13 +214,7 @@ SceneBase {
         id:loader
         //        source:activeLevelFileName !==""? activeLevelFileName:""
         onLoaded:{
-
             chooseRules.visible = true
         }
     }
-
-
-
-
-
 }

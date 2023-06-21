@@ -9,7 +9,6 @@ RedBase {
     id:redShiChess
     entityId: "redShiChess"
     entityType: "boxEntity"
-    index: 1
     source: "../../assets/red/RS.png"
 
 }

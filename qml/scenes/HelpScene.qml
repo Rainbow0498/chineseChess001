@@ -36,39 +36,19 @@ SceneBase{
                 anchors.top: parent.top
                 anchors.leftMargin: 20
                 anchors.topMargin: 20
-                Image{
-                    id:backButton_image
-                    source: "../../assets/background/bottonBackground.png"
-                    fillMode: Image.PreserveAspectCrop
-                    anchors.fill: parent
-
-                    MouseArea{
-                        anchors.fill:parent
-                        onEntered:{
-                            backButton_image.source = "../../assets/background/buttonBackground2.png"
-                            backText.color="#7B0E01"
-                        }
-                        onExited: {
-                            backButton_image.source ="../../assets/background/bottonBackground.png"
-                            backText.color="black"
-                        }
-                        onClicked: backButtonPressed()
-                        onPressed: {
-                            backButton.opacity =0.5
-                        }
-                        onReleased: {
-                            backButton.opacity =1
-                        }
+                text:"Back"
+                size:20
+                bold:true
+                buttonImage.source: "../../assets/background/bottonBackground.png"
+                tap.onTapped: backButtonPressed()
+                tap.onPressedChanged: {
+                    if(tap.pressed){
+                        backButton.opacity = 0.5
+                        buttonImage.source = "../../assets/background/buttonBackground2.png"
+                    }else{
+                        backButton.opacity = 1
+                        buttonImage.source = "../../assets/background/bottonBackground.png"
                     }
-                }
-                Text {
-                    id: backText
-                    text: qsTr("Back")
-                    padding: 10
-                    font.bold: true
-                    font.pixelSize: 20
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
                 }
             }
             //a rowLayout contains two buttons and a text
@@ -81,36 +61,18 @@ SceneBase{
                     width:60
                     height: 30
                     enabled: helpscene.currentPage > 0 // disable when on first page
-                    Image{
-                        id:prevPageButton_Image
-                        source: "../../assets/background/bottonBackground.png"
-                        fillMode: Image.PreserveAspectCrop
-                        anchors.fill: parent
-                        MouseArea{
-                            anchors.fill:parent
-                            onEntered:{
-                                prevPageButton_Image.source = "../../assets/background/buttonBackground2.png"
-                                prevPageText.color="#7B0E01"
-                            }
-                            onExited: {
-                                prevPageButton_Image.source ="../../assets/background/bottonBackground.png"
-                                prevPageText.color="black"
-                            }
-                            onPressed: {
-                                prevPageButton.opacity =0.5
-                            }
-                            onReleased: {
-                                prevPageButton.opacity =1
-                            }
-                            onClicked: helpscene.currentPage--
-                        }
-                        Text {
-                            id: prevPageText
-                            text: qsTr("<")
-                            font.bold: true
-                            font.pixelSize: 20
-                            font.family: standardFont.name
-                            anchors.centerIn: parent
+                    text:"<"
+                    size:20
+                    bold:true
+                    buttonImage.source: "../../assets/background/bottonBackground.png"
+                    tap.onTapped: helpscene.currentPage--
+                    tap.onPressedChanged: {
+                        if(tap.pressed){
+                            prevPageButton.opacity = 0.5
+                            buttonImage.source = "../../assets/background/buttonBackground2.png"
+                        }else{
+                            prevPageButton.opacity = 1
+                            buttonImage.source = "../../assets/background/bottonBackground.png"
                         }
                     }
                 }
@@ -129,43 +91,22 @@ SceneBase{
                     width:60
                     height: 30
                     enabled: helpscene.currentPage < 1
-                    Image{
-                        id:nextPageButton_Image
-                        source: "../../assets/background/bottonBackground.png"
-                        fillMode: Image.PreserveAspectCrop
-                        anchors.fill: parent
-                        MouseArea{
-                            anchors.fill:parent
-                            onEntered:{
-                                nextPageButton_Image.source = "../../assets/background/buttonBackground2.png"
-                                nextPageText.color="#7B0E01"
-                            }
-                            onExited: {
-                                nextPageButton_Image.source ="../../assets/background/bottonBackground.png"
-                                nextPageText.color="black"
-                            }
-                            onPressed: {
-                                nextPageButton.opacity =0.5
-                            }
-                            onReleased: {
-                                nextPageButton.opacity =1
-                            }
-                            onClicked: helpscene.currentPage++
-                        }
-                        Text {
-                            id:nextPageText
-                            text: qsTr(">")
-                            font.bold: true
-                            font.pixelSize: 20
-                            font.family: standardFont.name
-                            anchors.centerIn: parent
+                    text:">"
+                    size:20
+                    bold:true
+                    buttonImage.source: "../../assets/background/bottonBackground.png"
+                    tap.onTapped: helpscene.currentPage++
+                    tap.onPressedChanged: {
+                        if(tap.pressed){
+                            nextPageButton.opacity = 0.5
+                            buttonImage.source = "../../assets/background/buttonBackground2.png"
+                        }else{
+                            nextPageButton.opacity = 1
+                            buttonImage.source = "../../assets/background/bottonBackground.png"
                         }
                     }
                 }
             }
-
-
-
             ScrollView{
                 anchors.centerIn: parent
                 width:200

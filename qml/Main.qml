@@ -24,11 +24,9 @@ GameWindow {
 
     MenuScene{
         id:menuScene
-        onLevelPressed: {
-            //            playScene.setLevel(selectedLevel)
-            gameWindow.state = "play"
-        }
-
+        onBeginOwnPlay: gameWindow.state = "play"
+        onBeginAIPlay: gameWindow.state = "playAI"
+        onBeginDoublePlay: gameWindow.state = "playDouble"
         onBackButtonPressed: gameWindow.state ="main"
     }
 
@@ -55,6 +53,14 @@ GameWindow {
     PlayScene{
         id:playScene
         onBackButtonPressed: gameWindow.state ="menu"
+    }
+
+    PlayAiScene{
+        id:playAiScene
+    }
+
+    PlayDoubleScene{
+        id:playDoubleScene
     }
 
 
@@ -114,6 +120,28 @@ GameWindow {
             PropertyChanges {
                 target: gameWindow;
                 activeScene:playScene
+            }
+        },
+        State{
+            name:"playAI"
+            PropertyChanges {
+                target: playAiScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:playAiScene
+            }
+        },
+        State{
+            name:"playDouble"
+            PropertyChanges {
+                target: playDoubleScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:playDoubleScene
             }
         }
     ]

@@ -4,20 +4,25 @@
 
 import QtQuick 2.0
 import Felgo 3.0
+
 Item {
     id:gameLogic
     property int lastRow
     property int lastCol
-    property int index
+    property int index //记录选中棋子的类型
     property bool canMove
-    property int camp
-    property bool dead
+    property int camp //记录选中阵营
     property int newRow:-1
     property int newCol:-1
+    property int aiLastRow:-1
+    property int aiLastCol:-1
+    property int aiRow:-1
+    property int aiCol:-1
     property int stepCount //总步数
     property int mouseCount //区域点击次数
-    property int lineCount
+    property int lineCount //记录这条线上有多少棋子，炮和车使用
 
+    //单人对战处理逻辑
     function getChoosePos(mouseX,mouseY){
         newCol = (mouseX+34)/68
         newRow = (mouseY+34)/68
@@ -34,7 +39,7 @@ Item {
             }
             else{
                 if(getID(newRow,newCol).isDead !==true){
-                        mouseCount++
+                    mouseCount++
                 }
             }
         }
@@ -42,7 +47,7 @@ Item {
             lastRow = newRow
             lastCol = newCol
             camp = getID(newRow,newCol).camp
-//            updateTime()
+            //            updateTime()
             if((stepCount%2==0&&getID(lastRow,lastCol).camp!==1)||(stepCount%2==1&&getID(lastRow,lastCol).camp!==0)){
                 mouseCount--
                 cannotMove.visible =true
@@ -76,36 +81,46 @@ Item {
         }
     }
 
-//    function updateTime(){
-//        if(stepCount%2==0){
-//            player1.timeStart
-//        }else{
-//            player2.timeStart.start()
-//        }
-//    }
-
+    //    function updateTime(){
+    //        if(stepCount%2==0){
+    //            player1.timeStart
+    //        }else{
+    //            player2.timeStart.start()
+    //        }
+    //    }
+//移动棋子函数
     function updateChessPos(lastY,lastX,newY,newX){
         index = getID(lastY,lastX).index
+        console.log(index)
         switch(index){
         case 0:
             canMove = isShuaiMove()
             break
         case 1:
+        case 5:
             canMove = isShiMove()
             break
         case 2:
+        case 6:
             canMove = isEleMove()
             break
         case 3:
+        case 7:
             canMove = isHorseMove()
             break
         case 4:
+        case 8:
             canMove = isCarMove()
             break
-        case 5:
+        case 9:
+        case 10:
             canMove = isGunMove()
             break
-        case 6:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
             canMove = isBingMove()
             break
         }
@@ -123,7 +138,7 @@ Item {
             return true
         }else return false
     }
-
+//吃子使用该函数
     function eatChess(lastRow,lastCol,newRow,newCol){
         if(updateChessPos(lastRow,lastCol,newRow,newCol)){
             eatMusic.play()
@@ -131,7 +146,7 @@ Item {
             return true
         }else return false
     }
-
+//判断是否将军
     function isGeneral(index){
         lastRow=newRow
         lastCol=newCol
@@ -141,21 +156,30 @@ Item {
         case 0:
             return isShuaiMove()
         case 1:
+        case 5:
             return isShiMove()
         case 2:
+        case 6:
             return isEleMove()
         case 3:
+        case 7:
             return isHorseMove()
         case 4:
+        case 8:
             return isCarMove()
-        case 5:
+        case 9:
+        case 10:
             return isGunMove()
-        case 6:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
             return isBingMove()
         }
-//        return false
+        //        return false
     }
-
+//判断帅能否移动
     function isShuaiMove(){
         if(camp==1){
             if((newCol<3||newCol>5)||newRow<7)
@@ -193,7 +217,7 @@ Item {
 
 
     }
-
+//判断士能否移动
     function isShiMove(){
         if(camp==1){
             if((newCol<3||newCol>5)||newRow<7)
@@ -216,7 +240,7 @@ Item {
             }
         }
     }
-
+//判断象能否移动
     function isEleMove(){
         if(camp==1){
             if(newRow>=5){
@@ -233,7 +257,7 @@ Item {
                 return false
         }
     }
-
+//判断马能否移动
     function isHorseMove(){
         if((newCol-lastCol===1&&newRow-lastRow===2)||(newCol-lastCol===-1&&newRow-lastRow===2)){
             if(getID((newRow+lastRow)/2,lastCol)!==null)
@@ -258,7 +282,7 @@ Item {
         }
         else return false
     }
-
+//判断车能否移动
     function isCarMove(){
         if(newRow===lastRow||newCol===lastCol){
             getChessCountAtLine(newRow,newCol,lastRow,lastCol)
@@ -269,7 +293,7 @@ Item {
         }
         else return false
     }
-
+//判断炮能否移动
     function isGunMove(){
         if(newRow===lastRow||newCol===lastCol){
             getChessCountAtLine(newRow,newCol,lastRow,lastCol)
@@ -379,6 +403,185 @@ Item {
         }
     }
 
+
+    //AI对战处理逻辑
+    function getAIChoosePos(mouseX,mouseY){
+        if(stepCount%2==1){
+            machineMovePiece()
+            stepCount++
+            checkerboardChoose.visible = true
+            checkerboardChoose.x = aiCol * 68-34
+            checkerboardChoose.y = aiRow * 68-34
+        }else if(stepCount%2 == 0){
+            newCol = (mouseX+34)/68
+            newRow = (mouseY+34)/68
+            checkerboardChoose.visible = true
+            checkerboardChoose.x = newCol * 68-34
+            checkerboardChoose.y = newRow * 68-34
+            if(mouseCount == 0 && getID(newRow,newCol)===null){
+                newCol =-1
+                newRow =-1
+            }
+            else {
+                if(getID(newRow,newCol) ===null){
+                    mouseCount++
+                }
+                else{
+                    if(getID(newRow,newCol).isDead !==true){
+                        mouseCount++
+                    }
+                }
+            }
+            if(mouseCount === 1){
+                lastRow = newRow
+                lastCol = newCol
+                camp = getID(newRow,newCol).camp
+                //            updateTime()
+                if((stepCount%2==0&&getID(lastRow,lastCol).camp!==1)||(stepCount%2==1&&getID(lastRow,lastCol).camp!==0)){
+                    mouseCount--
+                    cannotMove.visible =true
+                }
+            }
+            else if(mouseCount === 2 && getID(newRow,newCol)!==null){
+                if(getID(newRow,newCol).camp===camp)
+                {
+                    mouseCount--
+                    lastRow = newRow
+                    lastCol = newCol
+                }
+                else{
+                    if(eatChess(lastRow,lastCol,newRow,newCol)){
+                        stepCount++
+                        mouseCount = 0
+
+                    }else{
+                        mouseCount--
+                    }
+                }
+            }
+            else if(mouseCount === 2){
+                if(updateChessPos(lastRow,lastCol,newRow,newCol))
+                {
+                    stepCount++
+                    mouseCount =0
+
+                }
+                else {
+                    mouseCount--
+                }
+            }
+        }
+    }
+
+
+    //计算最好的局面分
+    function calcScore(){
+        var redGrossScore = 0
+        var blackGrossScore = 0
+        console.log(redGrossScore,blackGrossScore)
+        //这些数值代表棋子的分数，分别为将、士、相、马、车、炮、兵
+        var chessScore = [200,20,40,60,100,20,40,60,100,80,80,10,10,10,10,10]
+
+        for(var row = 0;row<10;row++){
+            for(var col =0 ;col<9;col++)
+            {
+                if(getID(row,col)!==null&&getID(row,col).camp===1&&getID(row,col).isDead!==true){
+                    redGrossScore += chessScore[getID(row,col).index]
+                }else if(getID(row,col)!==null&&getID(row,col).camp===0&&getID(row,col).isDead!==true){
+                    blackGrossScore +=chessScore[getID(row,col).index]
+                }
+            }
+        }
+        console.log(redGrossScore,blackGrossScore)
+        return (blackGrossScore - redGrossScore)
+    }
+//假装移动（让移动的那个棋子死亡）为了方便计算场面分
+    function fakeMove(row,col){
+        getID(row,col).isDead = true
+    }
+//回滚
+    function unFakeMove(index,camp){
+        getID1(index,camp).isDead = false
+    }
+//AI移动的函数
+    function machineMovePiece(){
+        var maxScore = -10000
+//第一重循环是为了获取所有的黑子，第二重循环里获取所有的红字，然后通过黑子的类型来依次判断能不能吃掉红子，若能吃掉，就计算如果移动这步能导致场面分增加还是减少，增加保留该移动步骤，减少就不管继续下一次循环
+        for(var index =0;index<16;index++){
+            lastRow = getID1(index,0).row
+            lastCol = getID1(index,0).col
+            camp = getID1(index,0).camp
+            for(var index2 = 0;index2<16;index2++){
+                newRow = getID1(index2,1).row
+                newCol = getID1(index2,1).col
+                switch(index){
+                case 0:
+                    canMove = isShuaiMove()
+                    break
+                case 1:
+                case 5:
+                    canMove = isShiMove()
+                    break
+                case 2:
+                case 6:
+                    canMove = isEleMove()
+                    break
+                case 3:
+                case 7:
+                    canMove = isHorseMove()
+                    break
+                case 4:
+                case 8:
+                    canMove = isCarMove()
+                    break
+                case 9:
+                case 10:
+                    canMove = isGunMove()
+                    break
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+//                case 15:
+//                    canMove = isBingMove()
+//                    break
+                default: break
+                }
+//                console.log(canMove)
+                if(canMove){
+                    fakeMove(newRow,newCol)
+                    var score = calcScore()
+//                    console.log(score)
+                    unFakeMove(index2,1)
+
+                    if(score > maxScore){
+                        maxScore = score
+                        aiLastCol = lastCol
+                        aiLastRow = lastRow
+                        aiRow = newRow
+                        aiCol = newCol
+                    }
+                }else{
+                    continue
+                }
+            }
+        }
+//若黑子能够吃掉红子，就开始吃掉红子，不能吃掉红子就随机一个黑子让他向下移动一格
+        if(maxScore>0){
+            getID(aiRow,aiCol).isDead = true
+            moveAI.start()
+        }else{
+            var a = parseInt(Math.random()*16)
+            console.log(a)
+            aiLastRow = getID1(a,0).row
+            aiLastCol = getID1(a,0).col
+            aiRow = aiLastRow+1
+            aiCol = aiLastCol
+            console.log(aiLastRow,aiLastCol,aiRow,aiCol)
+            moveAI.start()
+        }
+    }
+
     ParallelAnimation{
         id:move
         NumberAnimation{
@@ -391,6 +594,22 @@ Item {
             target:getID(lastRow,lastCol)
             property: "col"
             to:newCol
+            duration: 100
+        }
+    }
+
+    ParallelAnimation{
+        id:moveAI
+        NumberAnimation{
+            target:getID(aiLastRow,aiLastCol)
+            property: "row"
+            to:aiRow
+            duration: 100
+        }
+        NumberAnimation{
+            target:getID(aiLastRow,aiLastCol)
+            property: "col"
+            to:aiCol
             duration: 100
         }
     }
@@ -433,7 +652,44 @@ Item {
         redBing4.row = 6; redBing4.col = 6;
         redBing5.row = 6; redBing5.col = 8;
     }
+//通过类型和阵营寻找棋子
+    function getID1(index,camp) {
+        if( blackShuai.index ===index && blackShuai.camp ===camp) { return blackShuai }
+        else if( blackShi1.index ===index && blackShi1.camp ===camp) { return blackShi1 }
+        else if( blackShi2.index ===index && blackShi2.camp ===camp) { return blackShi2 }
+        else if( blackEle1.index ===index && blackEle1.camp ===camp) { return blackEle1 }
+        else if( blackEle2.index ===index && blackEle2.camp ===camp) { return blackEle2 }
+        else if( blackHorse1.index ===index && blackHorse1.camp ===camp) { return blackHorse1 }
+        else if( blackHorse2.index ===index && blackHorse2.camp ===camp) { return blackHorse2 }
+        else if( blackCar1.index ===index && blackCar1.camp ===camp ) { return blackCar1 }
+        else if( blackCar2.index ===index && blackCar2.camp ===camp ) { return blackCar2 }
+        else if( blackGun1.index ===index && blackGun1.camp ===camp ) { return blackGun1 }
+        else if( blackGun2.index ===index && blackGun2.camp ===camp ) { return blackGun2 }
+        else if( blackBing1.index ===index && blackBing1.camp ===camp ) { return blackBing1 }
+        else if( blackBing2.index ===index && blackBing2.camp ===camp ) { return blackBing2 }
+        else if( blackBing3.index ===index && blackBing3.camp ===camp ) { return blackBing3 }
+        else if( blackBing4.index ===index && blackBing4.camp ===camp ) { return blackBing4 }
+        else if( blackBing5.index ===index && blackBing5.camp ===camp ) { return blackBing5 }
 
+        else if( redShuai.index ===index && redShuai.camp ===camp ) { return redShuai }
+        else if( redShi1.index ===index && redShi1.camp ===camp) { return redShi1}
+        else if( redShi2.index ===index && redShi2.camp ===camp) { return redShi2 }
+        else if( redEle1.index ===index && redEle1.camp ===camp) { return redEle1 }
+        else if( redEle2.index ===index && redEle2.camp ===camp) { return redEle2 }
+        else if( redHorse1.index ===index && redHorse1.camp ===camp ) { return redHorse1 }
+        else if( redHorse2.index ===index && redHorse2.camp ===camp ) { return redHorse2 }
+        else if( redCar1.index ===index && redCar1.camp ===camp) { return redCar1 }
+        else if( redCar2.index ===index && redCar2.camp ===camp) { return redCar2 }
+        else if( redGun1.index ===index && redGun1.camp ===camp) { return redGun1 }
+        else if( redGun2.index ===index && redGun2.camp ===camp) { return redGun2 }
+        else if( redBing1.index ===index && redBing1.camp ===camp ) { return redBing1 }
+        else if( redBing2.index ===index && redBing2.camp ===camp ) { return redBing2 }
+        else if( redBing3.index ===index && redBing3.camp ===camp ) { return redBing3 }
+        else if( redBing4.index ===index && redBing4.camp ===camp ) { return redBing4 }
+        else if( redBing5.index ===index && redBing5.camp ===camp) { return redBing5 }
+        else return null
+    }
+//通过行和列来判断棋子的类型
     function getID(row, col) {
         if( blackShuai.row ===row && blackShuai.col ===col &&blackShuai.isDead!==true) { return blackShuai }
         else if( blackShi1.row ===row && blackShi1.col ===col &&blackShi1.isDead!==true) { return blackShi1 }

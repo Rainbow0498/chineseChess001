@@ -8,8 +8,8 @@ import "../common"
 import "../entities"
 // EMPTY SCENE
 
-LevelBase {
-    levelName:"PlayDoubleScene"
+SceneBase {
+    id:playDoubleScene
 
     Rectangle{
         anchors.centerIn: parent
@@ -35,11 +35,4 @@ LevelBase {
             }
         }
     }
-
-
-
-
-
-
-
 }

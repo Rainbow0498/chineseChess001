@@ -28,10 +28,6 @@ Item {
         color: "black"
         opacity: 0.3
         radius: 30
-        //catch mouse clicks
-        MouseArea{
-            anchors.fill: parent
-        }
     }
     //exitprompt background
     Rectangle{
@@ -104,7 +100,9 @@ Item {
         paddingHorizontal: 8
         paddingVertical: 4
         text: "Cancel"
-        onClicked: exitPrompt.visible = false
+        tap.onTapped: {
+            exitPrompt.visible = false
+        }
     }
 
     // button to leave the game
@@ -117,9 +115,9 @@ Item {
         paddingHorizontal: 8
         paddingVertical: 4
         text: "Quit"
-        onClicked: {
-            gameWindow.visible=false  //close the game
-            musicPlayer.pause();
+        tap.onTapped: {
+            gameWindow.visible = false
+            musicPlayer.pause()
         }
     }
 

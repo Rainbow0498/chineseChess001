@@ -9,7 +9,6 @@ RedBase {
     id:redGunChess
     entityId: "redGunChess"
     entityType: "boxEntity"
-    index: 5
     source: "../../assets/red/RP.png"
 
 }

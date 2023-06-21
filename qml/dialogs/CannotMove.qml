@@ -21,11 +21,6 @@ Item {
         height: playScene.height * 2
         color: "black"
         opacity: 0.3
-
-        // catch the mouse clicks
-        MouseArea {
-            anchors.fill: parent
-        }
     }
 
     // message background
@@ -67,7 +62,7 @@ Item {
         box.radius: 30
         textSize: 28
         text: "OK"
-        onClicked: {
+        tap.onTapped : {
             cannotMove.visible = false
         }
     }

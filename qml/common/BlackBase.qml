@@ -25,7 +25,4 @@ EntityBase {
         source: ""
         anchors.fill: parent
     }
-    TapHandler{
-        acceptedButtons: Qt.LeftButton
-    }
 }

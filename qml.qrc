@@ -5,7 +5,6 @@
         <file>qml/scenes/MenuScene.qml</file>
         <file>qml/scenes/PlayAiScene.qml</file>
         <file>qml/scenes/PlayDoubleScene.qml</file>
-        <file>qml/scenes/PlayOwnScene.qml</file>
         <file>qml/scenes/PlayScene.qml</file>
         <file>qml/scenes/SettingScene.qml</file>
         <file>qml/entities/BlackCarChess.qml</file>

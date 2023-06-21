@@ -20,7 +20,6 @@ EntityBase {
     x: col * 68-width/2
     y: row * 68-height/2
     visible: !isDead
-    focus: false
 //    z:110
 
     Image {
@@ -28,11 +27,4 @@ EntityBase {
         source: ""
         anchors.fill: parent
     }
-
-    Image {
-        id: selectBorder
-        source: "../../assets/select/slected.png"
-        visible: focus
-    }
-
 }

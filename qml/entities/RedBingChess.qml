@@ -9,7 +9,6 @@ RedBase {
     id:redBingChess
     entityId: "redBingChess"
     entityType: "boxEntity"
-    index: 6
     source: "../../assets/red/RB.png"
 
 }

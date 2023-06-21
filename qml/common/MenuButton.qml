@@ -1,6 +1,6 @@
 //Function:Button to switch window
 
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 Rectangle {
     id: button
@@ -19,6 +19,8 @@ Rectangle {
     property alias text: buttonText.text
     property alias size:buttonText.font.pixelSize
     property alias bold:buttonText.font.bold
+    property alias buttonImage: buttonImage
+    property alias tap:tapArea
     // this handler is called when the button is clicked.
     signal clicked
 
@@ -30,12 +32,15 @@ Rectangle {
         color: "black"
     }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        onClicked: button.clicked()
-        onPressed: button.opacity = 0.5
-        onReleased: button.opacity = 1
+    Image {
+      id: buttonImage
+      source: ""
+      anchors.fill: parent
+      smooth: true
+    }
+
+    TapHandler{
+        id:tapArea
+        onTapped: button.clicked()
     }
 }

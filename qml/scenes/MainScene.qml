@@ -34,42 +34,20 @@ SceneBase {
         height: 30
         x:200
         y:250
-        Image{
-            id: beginButton_image
-            source: "../../assets/background/bottonBackground.png"
-
-            fillMode: Image.PreserveAspectCrop
-            anchors.fill: parent
-            MouseArea{
-                anchors.fill:parent
-                onEntered:{
-                    beginButton_image.source = "../../assets/background/buttonBackground2.png"
-                    beginText.color="#7B0E01"
-                }
-                onExited: {
-                    beginButton_image.source ="../../assets/background/bottonBackground.png"
-                    beginText.color="black"
-                }
-
-                onClicked: beginGamePressed()
-
-                onPressed: {
-                    beginButton.opacity =0.5
-                }
-                onReleased: {
-                    beginButton.opacity =1
-                }
-            }
-            Text {
-                id: beginText
-                text: qsTr("Play")
-                font.bold: true
-                font.pixelSize: 20
-                font.family: standardFont.name
-                anchors.centerIn: parent
+        text:"Play"
+        size:20
+        bold:true
+        buttonImage.source: "../../assets/background/bottonBackground.png"
+        tap.onTapped: beginGamePressed()
+        tap.onPressedChanged: {
+            if(tap.pressed){
+                beginButton.opacity = 0.5
+                buttonImage.source = "../../assets/background/buttonBackground2.png"
+            }else{
+                beginButton.opacity = 1
+                buttonImage.source = "../../assets/background/bottonBackground.png"
             }
         }
-
     }
 
     MenuButton{
@@ -78,40 +56,20 @@ SceneBase {
         height: 30
         x:200
         y:300
-        Image{
-            id:closeButton_image
-            source: "../../assets/background/bottonBackground.png"
-            fillMode: Image.PreserveAspectCrop
-            anchors.fill: parent
-            MouseArea{
-                anchors.fill:parent
-                onEntered:{
-                    closeButton_image.source = "../../assets/background/buttonBackground2.png"
-                    closeText.color="#7B0E01"
-
-                }
-                onExited: {
-                    closeButton_image.source ="../../assets/background/bottonBackground.png"
-                    closeText.color="black"
-                }
-                onClicked: closeGamePressed()
-                onPressed: {
-                    closeButton.opacity =0.5
-                }
-                onReleased: {
-                    closeButton.opacity =1
-                }
-            }
-            Text {
-                id: closeText
-                text: qsTr("Exit")
-                font.bold: true
-                font.pixelSize: 20
-                font.family:standardFont.name
-                anchors.centerIn: parent
+        text:"Exit"
+        size:20
+        bold:true
+        buttonImage.source: "../../assets/background/bottonBackground.png"
+        tap.onTapped: closeGamePressed()
+        tap.onPressedChanged: {
+            if(tap.pressed){
+                closeButton.opacity = 0.5
+                buttonImage.source = "../../assets/background/buttonBackground2.png"
+            }else{
+                closeButton.opacity = 1
+                buttonImage.source = "../../assets/background/bottonBackground.png"
             }
         }
-
     }
 
     MenuButton{
@@ -120,39 +78,20 @@ SceneBase {
         height: 30
         x:200
         y:350
-        Image{
-            id:setButton_image
-            source: "../../assets/background/bottonBackground.png"
-            fillMode: Image.PreserveAspectCrop
-            anchors.fill: parent
-            MouseArea{
-                anchors.fill:parent
-                onEntered:{
-                    setButton_image.source = "../../assets/background/buttonBackground2.png"
-                    setText.color="#7B0E01"
-                }
-                onExited: {
-                    setButton_image.source ="../../assets/background/bottonBackground.png"
-                    setText.color="black"
-                }
-                onClicked: setGamePressed()
-                onPressed: {
-                    setButton.opacity =0.5
-                }
-                onReleased: {
-                    setButton.opacity =1
-                }
-            }
-            Text {
-                id: setText
-                text: qsTr("Set")
-                font.bold: true
-                font.pixelSize: 20
-                font.family: standardFont.name
-                anchors.centerIn: parent
+        text:"Set"
+        size:20
+        bold:true
+        buttonImage.source: "../../assets/background/bottonBackground.png"
+        tap.onTapped: setGamePressed()
+        tap.onPressedChanged: {
+            if(tap.pressed){
+                setButton.opacity = 0.5
+                buttonImage.source = "../../assets/background/buttonBackground2.png"
+            }else{
+                setButton.opacity = 1
+                buttonImage.source = "../../assets/background/bottonBackground.png"
             }
         }
-
     }
 
     MenuButton{
@@ -161,36 +100,18 @@ SceneBase {
         height: 30
         x:200
         y:400
-        Image{
-            id: helpButton_image
-            source: "../../assets/background/bottonBackground.png"
-            fillMode: Image.PreserveAspectCrop
-            anchors.fill: parent
-            MouseArea{
-                anchors.fill:parent
-                onEntered:{
-                    helpButton_image.source = "../../assets/background/buttonBackground2.png"
-                    helpText.color="#7B0E01"
-                }
-                onExited: {
-                    helpButton_image.source ="../../assets/background/bottonBackground.png"
-                    helpText.color="black"
-                }
-                onClicked: helpGamePressed()
-                onPressed: {
-                    helpButton.opacity =0.5
-                }
-                onReleased: {
-                    helpButton.opacity =1
-                }
-            }
-            Text {
-                id: helpText
-                text: qsTr("Help")
-                font.bold: true
-                font.pixelSize: 20
-                font.family: standardFont.name
-                anchors.centerIn: parent
+        text:"Help"
+        size:20
+        bold:true
+        buttonImage.source: "../../assets/background/bottonBackground.png"
+        tap.onTapped: helpGamePressed()
+        tap.onPressedChanged: {
+            if(tap.pressed){
+                helpButton.opacity = 0.5
+                buttonImage.source = "../../assets/background/buttonBackground2.png"
+            }else{
+                helpButton.opacity = 1
+                buttonImage.source = "../../assets/background/bottonBackground.png"
             }
         }
     }

@@ -9,6 +9,9 @@ import "../common"
 SceneBase {
     id: menuScene
     //choose playMode
+    signal beginOwnPlay
+    signal beginAIPlay
+    signal beginDoublePlay
     signal levelPressed(string selectedLevel)
 
     // background
@@ -40,154 +43,80 @@ SceneBase {
         spacing: 20
         MenuButton{
             id:singleButton
-            width:70
+            width:120
             height: 30
-            Image{
-                id:singleButton_image
-                source: "../../assets/background/bottonBackground.png"
-                fillMode: Image.PreserveAspectCrop
-                anchors.fill: parent
-                MouseArea{
-                    anchors.fill:parent
-                    onEntered:{
-                        singleButton_image.source = "../../assets/background/buttonBackground2.png"
-                        singleText.color="#7B0E01"
-                    }
-                    onExited: {
-                        singleButton_image.source ="../../assets/background/bottonBackground.png"
-                        singleText.color="black"
-                    }
-
-                    onClicked: levelPressed("PlayOwnScene.qml")
-
-                    onPressed: {
-                        singleButton.opacity =0.5
-                    }
-                    onReleased: {
-                        singleButton.opacity =1
-                    }
-                }
-                Text {
-                    id: singleText
-                    text: qsTr("SingleFight")
-                    font.bold: true
-                    font.pixelSize: 12
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
+            text:"SingleFight"
+            size:12
+            bold:true
+            buttonImage.source: "../../assets/background/bottonBackground.png"
+            tap.onTapped: beginOwnPlay()
+            tap.onPressedChanged: {
+                if(tap.pressed){
+                    singleButton.opacity = 0.5
+                    buttonImage.source = "../../assets/background/buttonBackground2.png"
+                }else{
+                    singleButton.opacity = 1
+                    buttonImage.source = "../../assets/background/bottonBackground.png"
                 }
             }
         }
 
         MenuButton{
             id:doubleButton
-            width:70
+            width:120
             height: 30
-            Image{
-                id:doubleButton_image
-                source: "../../assets/background/bottonBackground.png"
-                fillMode: Image.PreserveAspectCrop
-                anchors.fill: parent
-                MouseArea{
-                    anchors.fill:parent
-                    onEntered:{
-                        doubleButton_image.source = "../../assets/background/buttonBackground2.png"
-                        doubleText.color="#7B0E01"
-                    }
-                    onExited: {
-                        doubleButton_image.source ="../../assets/background/bottonBackground.png"
-                        doubleText.color="black"
-                    }
-                    onClicked: levelPressed("PlayDoubleScene.qml")
-                    onPressed: {
-                        doubleButton.opacity =0.5
-                    }
-                    onReleased: {
-                        doubleButton.opacity =1
-                    }
-                }
-                Text {
-                    id: doubleText
-                    text: qsTr("DoubleFight")
-                    font.bold: true
-                    font.pixelSize: 12
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
+            text:"DoubleFight"
+            size:12
+            bold:true
+            buttonImage.source: "../../assets/background/bottonBackground.png"
+            tap.onTapped: beginDoublePlay()
+            tap.onPressedChanged: {
+                if(tap.pressed){
+                    doubleButton.opacity = 0.5
+                    buttonImage.source = "../../assets/background/buttonBackground2.png"
+                }else{
+                    doubleButton.opacity = 1
+                    buttonImage.source = "../../assets/background/bottonBackground.png"
                 }
             }
         }
 
         MenuButton{
             id:aiButton
-            width:70
+            width:120
             height: 30
-            Image{
-                id:aiButton_image
-                source: "../../assets/background/bottonBackground.png"
-                fillMode: Image.PreserveAspectCrop
-                anchors.fill: parent
-                MouseArea{
-                    anchors.fill:parent
-                    onEntered:{
-                        aiButton_image.source = "../../assets/background/buttonBackground2.png"
-                        aiText.color="#7B0E01"
-                    }
-                    onExited: {
-                        aiButton_image.source ="../../assets/background/bottonBackground.png"
-                        aiText.color="black"
-                    }
-                    onClicked: levelPressed("PlayAiScene.qml")
-                    onPressed: {
-                        aiButton.opacity =0.5
-                    }
-                    onReleased: {
-                        aiButton.opacity =1
-                    }
-                }
-                Text {
-                    id: aiText
-                    text: qsTr("DoubleFight")
-                    font.bold: true
-                    font.pixelSize: 12
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
+            text:"AIFight"
+            size:12
+            bold:true
+            buttonImage.source: "../../assets/background/bottonBackground.png"
+            tap.onTapped: beginAIPlay()
+            tap.onPressedChanged: {
+                if(tap.pressed){
+                    aiButton.opacity = 0.5
+                    buttonImage.source = "../../assets/background/buttonBackground2.png"
+                }else{
+                    aiButton.opacity = 1
+                    buttonImage.source = "../../assets/background/bottonBackground.png"
                 }
             }
         }
 
         MenuButton{
             id:backButton
-            width:70
+            width:120
             height: 30
-            Image{
-                id:backButton_image
-                source: "../../assets/background/bottonBackground.png"
-                fillMode: Image.PreserveAspectCrop
-                anchors.fill: parent
-                MouseArea{
-                    anchors.fill:parent
-                    onEntered:{
-                        backButton_image.source = "../../assets/background/buttonBackground2.png"
-                        backText.color="#7B0E01"
-                    }
-                    onExited: {
-                        backButton_image.source ="../../assets/background/bottonBackground.png"
-                        backText.color="black"
-                    }
-                    onClicked: backButtonPressed()
-                    onPressed: {
-                        backButton.opacity =0.5
-                    }
-                    onReleased: {
-                        backButton.opacity =1
-                    }
-                }
-                Text {
-                    id: backText
-                    text: qsTr("Back")
-                    font.bold: true
-                    font.pixelSize: 12
-                    font.family: standardFont.name
-                    anchors.centerIn: parent
+            text:"Back"
+            size:12
+            bold:true
+            buttonImage.source: "../../assets/background/bottonBackground.png"
+            tap.onTapped: backButtonPressed()
+            tap.onPressedChanged: {
+                if(tap.pressed){
+                    backButton.opacity = 0.5
+                    buttonImage.source = "../../assets/background/buttonBackground2.png"
+                }else{
+                    backButton.opacity = 1
+                    buttonImage.source = "../../assets/background/bottonBackground.png"
                 }
             }
         }

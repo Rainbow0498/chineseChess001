@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 
 Rectangle {
   id: button
@@ -20,8 +20,7 @@ Rectangle {
   property alias textSize: buttonText.font.pixelSize
   property alias backgroundColor: button.color
   property alias box: box
-  property alias mouseArea: mouseArea
-
+  property alias tap:tapArea
   property int notification: 0
 
 
@@ -55,16 +54,16 @@ Rectangle {
     x: notification > 0 ? 2 : 0
   }
 
-  // clickable button area
-  MouseArea {
-    id: mouseArea
-    anchors.fill: parent
-    hoverEnabled: true
-    onClicked: button.clicked()
-    onPressed: if (buttonImage.source == "") button.opacity = 0.8
-    onReleased: if (buttonImage.source == "")  button.opacity = 1
-
-    anchors.margins: -2
+  TapHandler{
+      id:tapArea
+      onTapped: button.clicked()
+      onPressedChanged: {
+          if(pressed){
+              button.opacity = 0.8
+          }else{
+              button.opacity = 1
+          }
+      }
   }
 
   // rectangle with notifications

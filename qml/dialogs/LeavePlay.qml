@@ -21,11 +21,6 @@ Item {
         height: playScene.height * 2
         color: "black"
         opacity: 0.3
-
-        // catch the mouse clicks
-        MouseArea {
-            anchors.fill: parent
-        }
     }
 
     // message background
@@ -52,7 +47,7 @@ Item {
             id: playAgain
             text:"继续游戏"
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked: {
+            tap.onTapped: {
                 leavePlay.visible = false
             }
         }
@@ -60,7 +55,7 @@ Item {
             id:restartPlay
             text:"重新开始"
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked:{
+            tap.onTapped: {
                 gameLogic.initGame()
                 leavePlay.visible = false
             }
@@ -69,7 +64,7 @@ Item {
             id:backMenu
             text:"返回目录"
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked:{
+            tap.onTapped: {
                 leavePlay.visible = false
                 gameWindow.state = "menu"
             }
@@ -78,7 +73,7 @@ Item {
             id:backMain
             text:"返回主页面"
             anchors.horizontalCenter: parent.horizontalCenter
-            onClicked:{
+            tap.onTapped: {
                 leavePlay.visible = false
                 gameWindow.state = "main"
             }
@@ -98,7 +93,8 @@ Item {
         box.radius: 30
         textSize: 28
         text: "OK"
-        onClicked: {
+
+        tap.onTapped: {
             leavePlay.visible = false
         }
     }

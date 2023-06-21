@@ -32,36 +32,18 @@ SceneBase{
         anchors.top: parent.top
         anchors.leftMargin: 20
         anchors.topMargin: 20
-        Image{
-            id:backButton_image
-            source: "../../assets/background/bottonBackground.png"
-            fillMode: Image.PreserveAspectCrop
-            anchors.fill: parent
-            MouseArea{
-                anchors.fill:parent
-                onEntered:{
-                    backButton_image.source = "../../assets/background/buttonBackground2.png"
-                    backText.color="#7B0E01"
-                }
-                onExited: {
-                    backButton_image.source ="../../assets/background/bottonBackground.png"
-                    backText.color="black"
-                }
-                onClicked: backButtonPressed()
-                onPressed: {
-                    backButton.opacity =0.5
-                }
-                onReleased: {
-                    backButton.opacity =1
-                }
-            }
-            Text {
-                id: backText
-                text: qsTr("Back")
-                font.bold: true
-                font.pixelSize: 20
-                font.family: standardFont.name
-                anchors.centerIn: parent
+        text:"Back"
+        size:20
+        bold:true
+        buttonImage.source: "../../assets/background/bottonBackground.png"
+        tap.onTapped: backButtonPressed()
+        tap.onPressedChanged: {
+            if(tap.pressed){
+                backButton.opacity = 0.5
+                buttonImage.source = "../../assets/background/buttonBackground2.png"
+            }else{
+                backButton.opacity = 1
+                buttonImage.source = "../../assets/background/bottonBackground.png"
             }
         }
 

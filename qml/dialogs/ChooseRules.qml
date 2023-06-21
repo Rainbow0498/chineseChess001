@@ -20,11 +20,6 @@ Item {
         height: playScene.height * 2
         color: "black"
         opacity: 0.3
-
-        // catch the mouse clicks
-        MouseArea {
-            anchors.fill: parent
-        }
     }
 
     // message background
@@ -89,8 +84,7 @@ Item {
             box.radius: 30
             textSize: 28
             text: "Start Play"
-            onClicked: {
-
+            tap.onTapped: {
                 player1.minute = parseInt(minuteStep.currentText)
                 player1.second = parseInt(secondStep.currentText)
                 player2.minute = parseInt(minuteStep.currentText)
