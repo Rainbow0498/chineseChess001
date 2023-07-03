@@ -26,7 +26,7 @@ GameWindow {
         id:menuScene
         onBeginOwnPlay: gameWindow.state = "play"
         onBeginAIPlay: gameWindow.state = "playAI"
-        onBeginDoublePlay: gameWindow.state = "playDouble"
+        onBeginDoublePlay: gameWindow.state = "network"
         onBackButtonPressed: gameWindow.state ="main"
     }
 
@@ -63,6 +63,32 @@ GameWindow {
         id:playDoubleScene
     }
 
+    LocalMenuScene{
+        id:localMenuScene
+        onBackButtonPressed: gameWindow.state = "menu"
+        onCreateRoom: gameWindow.state = "create"
+        onJoinRoom: gameWindow.state = "join"
+    }
+
+    CreateRoomScene {
+        id:createRoomScene
+        onBackButtonPressed: gameWindow.state = "network"
+        onGamePressed: {
+            gameWindow.state = "playDouble"
+//            gameScene.init()
+//            gameScene.isConnected = true
+        }
+    }
+
+    JoinRoomScene {
+        id:joinRoomScene
+        onBackButtonPressed: gameWindow.state = "network"
+        onGamePressed: {
+            gameWindow.state = "playDouble"
+//            gameScene.init()
+//            gameScene.isConnected = true
+        }
+    }
 
     state: "main"
 
@@ -142,6 +168,39 @@ GameWindow {
             PropertyChanges {
                 target: gameWindow;
                 activeScene:playDoubleScene
+            }
+        },
+        State{
+            name:"network"
+            PropertyChanges {
+                target: localMenuScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:localMenuScene
+            }
+        },
+        State{
+            name:"create"
+            PropertyChanges {
+                target: createRoomScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:createRoomScene
+            }
+        },
+        State{
+            name:"join"
+            PropertyChanges {
+                target: joinRoomScene;
+                opacity:1
+            }
+            PropertyChanges {
+                target: gameWindow;
+                activeScene:joinRoomScene
             }
         }
     ]

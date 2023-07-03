@@ -75,5 +75,8 @@
         <file>assets/audio/JiangJun.wav</file>
         <file>qml/dialogs/CannotMove.qml</file>
         <file>qml/dialogs/LeavePlay.qml</file>
+        <file>qml/scenes/CreateRoomScene.qml</file>
+        <file>qml/scenes/JoinRoomScene.qml</file>
+        <file>qml/scenes/LocalMenuScene.qml</file>
     </qresource>
 </RCC>

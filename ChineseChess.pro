@@ -38,7 +38,9 @@ PRODUCT_LICENSE_KEY = ""
 
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    client.cpp \
+    server.cpp
 
 
 android {
@@ -77,4 +79,8 @@ macx {
 
 RESOURCES += \
     qml.qrc
+
+HEADERS += \
+    client.h \
+    server.h
 

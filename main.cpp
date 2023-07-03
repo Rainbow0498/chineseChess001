@@ -3,6 +3,9 @@
 
 #include <QQmlApplicationEngine>
 
+#include "client.h"
+#include "server.h"
+
 // uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 //#include <FelgoLiveClient>
 
@@ -16,6 +19,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     felgo.initialize(&engine);
 
+
+    qmlRegisterType<Server>("Server",1,0,"Server");
+    qmlRegisterType<Client>("Client",1,0,"Client");
     // Set an optional license key from project file
     // This does not work if using Felgo Live, only for Felgo Cloud Builds and local builds
     felgo.setLicenseKey(PRODUCT_LICENSE_KEY);
