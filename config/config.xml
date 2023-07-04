@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Welcome to the ChineseChess Setup Wizard,this project is made by yangyunbo,daixin,tangyu.</Name>
+    <Version>1.0.0</Version>
+    <Title>ChineseChess</Title>
+    <Publisher>yangyunbo,daixin,tangyu</Publisher>
+    <StartMenuDir>Super App</StartMenuDir>
+    <TargetDir>@HomeDir@/InstallationDirectory</TargetDir>
+</Installer>
