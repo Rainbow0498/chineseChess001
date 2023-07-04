@@ -60,5 +60,4 @@ private:
     int row;
     int col;
 };
-
 #endif // SERVER_H

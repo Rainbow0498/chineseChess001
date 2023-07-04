@@ -186,6 +186,11 @@ SceneBase {
         id: chooseRules
     }
 
+    GameOver{
+        id:gameOver
+        anchors.centerIn: gameWindowAnchorItem
+    }
+
     CannotMove{
         id:cannotMove
         anchors.centerIn: gameWindowAnchorItem

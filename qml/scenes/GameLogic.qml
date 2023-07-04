@@ -7,6 +7,9 @@ import Felgo 3.0
 
 Item {
     id:gameLogic
+
+    signal communication
+
     property int lastRow
     property int lastCol
     property int index //记录选中棋子的类型
@@ -22,6 +25,9 @@ Item {
     property int mouseCount //区域点击次数
     property int lineCount //记录这条线上有多少棋子，炮和车使用
 
+
+
+
     //单人对战处理逻辑
     function getChoosePos(mouseX,mouseY){
         newCol = (mouseX+34)/68
@@ -29,51 +35,66 @@ Item {
         checkerboardChoose.visible = true
         checkerboardChoose.x = newCol * 68-34
         checkerboardChoose.y = newRow * 68-34
-        if(mouseCount == 0 && getID(newRow,newCol)===null){
+        if(playDoubleScene.isConnected){
+            playDoubleScene.newCol = newCol
+            playDoubleScene.newRow = newRow
+        }
+        if(mouseCount == 0 && getID(newRow,newCol)===null){//判断是否点击棋子
             newCol =-1
             newRow =-1
         }
         else {
-            if(getID(newRow,newCol) ===null){
+            if(getID(newRow,newCol) ===null){//点击位置没有棋子
                 mouseCount++
             }
             else{
-                if(getID(newRow,newCol).isDead !==true){
+                if(getID(newRow,newCol).isDead !==true){//点击位置棋子存在
                     mouseCount++
                 }
             }
         }
-        if(mouseCount === 1){
+        if(mouseCount === 1){//第一次点击成功后获取棋子的坐标和阵营，并通过总步数判断是否该这个阵营移动
             lastRow = newRow
             lastCol = newCol
             camp = getID(newRow,newCol).camp
             //            updateTime()
+            if(playDoubleScene.isConnected){
+                playDoubleScene.lastCol = lastCol
+                playDoubleScene.lastRow = lastRow
+            }
+
             if((stepCount%2==0&&getID(lastRow,lastCol).camp!==1)||(stepCount%2==1&&getID(lastRow,lastCol).camp!==0)){
                 mouseCount--
                 cannotMove.visible =true
             }
         }
         else if(mouseCount === 2 && getID(newRow,newCol)!==null){
-            if(getID(newRow,newCol).camp===camp)
+            if(getID(newRow,newCol).camp===camp)//第二次点击若为相同阵营棋子，则更改选中棋子
             {
                 mouseCount--
                 lastRow = newRow
                 lastCol = newCol
+                if(playDoubleScene.isConnected){
+                    playDoubleScene.lastCol = lastCol
+                    playDoubleScene.lastRow = lastRow
+                }
             }
             else{
-                if(eatChess(lastRow,lastCol,newRow,newCol)){
-                    stepCount++
+                if(eatChess(lastRow,lastCol,newRow,newCol)){//如果不是相同阵营则判断是否能吃子，不能吃子则无法移动，能吃子则移动
                     mouseCount = 0
+                    if(playDoubleScene.isConnected)
+                        communication()
                 }else{
                     mouseCount--
                 }
             }
         }
-        else if(mouseCount === 2){
+        else if(mouseCount === 2){//如果点击位置没有棋子，则直接判断棋子是否能够移动到那个位置
             if(updateChessPos(lastRow,lastCol,newRow,newCol))
             {
-                stepCount++
                 mouseCount =0
+                if(playDoubleScene.isConnected)
+                    communication()
             }
             else {
                 mouseCount--
@@ -88,8 +109,24 @@ Item {
     //            player2.timeStart.start()
     //        }
     //    }
-//移动棋子函数
+
+    function moveChess(lastY,lastX,newY,newX){
+        lastCol = lastX
+        lastRow = lastY
+        newRow = newY
+        newCol = newX
+        console.log(lastCol +" "+ lastRow+" " +newRow +" "+newCol)
+        if(getID(newY,newX)!==null){
+            console.log(getID(newY,newX))
+            getID(newY,newX).isDead = true
+        }
+        stepCount++
+        move.start()
+    }
+
+    //移动棋子函数
     function updateChessPos(lastY,lastX,newY,newX){
+        console.log(lastY+" "+lastX+" "+newY+" "+newX)
         index = getID(lastY,lastX).index
         console.log(index)
         switch(index){
@@ -126,15 +163,15 @@ Item {
         }
 
         if(canMove){
-            move.start()
-            index = getID(lastRow,lastCol).index
+            move.start()          
+            index = getID(lastY,lastX).index
             if(isGeneral(index)){
                 jiangjun.visible = true
                 jiangJunMusic.play()
             }else{
                 jiangjun.visible = false
             }
-
+            stepCount++
             return true
         }else return false
     }
@@ -142,6 +179,14 @@ Item {
     function eatChess(lastRow,lastCol,newRow,newCol){
         if(updateChessPos(lastRow,lastCol,newRow,newCol)){
             eatMusic.play()
+            console.log(getID(newRow,newCol))
+            if(getID(newRow,newCol)===redShuai){
+                gameOver.winner = false
+                gameOver.visible = true
+            }else if(getID(newRow,newCol)===blackShuai){
+                gameOver.winner = true
+                gameOver.visible = true
+            }
             getID(newRow,newCol).isDead = true;
             return true
         }else return false
@@ -451,7 +496,6 @@ Item {
                 }
                 else{
                     if(eatChess(lastRow,lastCol,newRow,newCol)){
-                        stepCount++
                         mouseCount = 0
 
                     }else{
@@ -462,7 +506,6 @@ Item {
             else if(mouseCount === 2){
                 if(updateChessPos(lastRow,lastCol,newRow,newCol))
                 {
-                    stepCount++
                     mouseCount =0
 
                 }
@@ -505,6 +548,7 @@ Item {
     }
 //AI移动的函数
     function machineMovePiece(){
+        console.log(lastRow+" "+lastCol)
         var maxScore = -10000
 //第一重循环是为了获取所有的黑子，第二重循环里获取所有的红字，然后通过黑子的类型来依次判断能不能吃掉红子，若能吃掉，就计算如果移动这步能导致场面分增加还是减少，增加保留该移动步骤，减少就不管继续下一次循环
         for(var index =0;index<16;index++){
@@ -618,39 +662,39 @@ Item {
         //init the AllStep
         stepCount = 0
         //init blackChess
-        blackShuai.row = 0; blackShuai.col = 4;
-        blackShi1.row = 0; blackShi1.col = 3;
-        blackShi2.row = 0; blackShi2.col = 5;
-        blackEle1.row = 0; blackEle1.col = 2;
-        blackEle2.row = 0; blackEle2.col = 6;
-        blackHorse1.row = 0; blackHorse1.col = 1;
-        blackHorse2.row = 0; blackHorse2.col = 7;
-        blackCar1.row = 0; blackCar1.col = 0;
-        blackCar2.row = 0; blackCar2.col = 8;
-        blackGun1.row = 2; blackGun1.col = 1;
-        blackGun2.row = 2; blackGun2.col = 7;
-        blackBing1.row = 3; blackBing1.col = 0;
-        blackBing2.row = 3; blackBing2.col = 2;
-        blackBing3.row = 3; blackBing3.col = 4;
-        blackBing4.row = 3; blackBing4.col = 6;
-        blackBing5.row = 3; blackBing5.col = 8;
+        blackShuai.row = 0; blackShuai.col = 4;blackShuai.isDead = false
+        blackShi1.row = 0; blackShi1.col = 3;blackShi1.isDead = false
+        blackShi2.row = 0; blackShi2.col = 5;blackShi2.isDead = false
+        blackEle1.row = 0; blackEle1.col = 2;blackEle1.isDead = false
+        blackEle2.row = 0; blackEle2.col = 6;blackEle2.isDead = false
+        blackHorse1.row = 0; blackHorse1.col = 1;blackHorse1.isDead = false
+        blackHorse2.row = 0; blackHorse2.col = 7;blackHorse2.isDead = false
+        blackCar1.row = 0; blackCar1.col = 0;blackCar1.isDead = false
+        blackCar2.row = 0; blackCar2.col = 8;blackCar2.isDead = false
+        blackGun1.row = 2; blackGun1.col = 1;blackGun1.isDead = false
+        blackGun2.row = 2; blackGun2.col = 7;blackGun2.isDead = false
+        blackBing1.row = 3; blackBing1.col = 0;blackBing1.isDead = false
+        blackBing2.row = 3; blackBing2.col = 2;blackBing2.isDead = false
+        blackBing3.row = 3; blackBing3.col = 4;blackBing3.isDead = false
+        blackBing4.row = 3; blackBing4.col = 6;blackBing4.isDead = false
+        blackBing5.row = 3; blackBing5.col = 8;blackBing5.isDead = false
         //init RedChess
-        redShuai.row = 9; redShuai.col = 4;
-        redShi1.row = 9; redShi1.col = 3;
-        redShi2.row = 9; redShi2.col = 5;
-        redEle1.row = 9; redEle1.col = 2;
-        redEle2.row = 9; redEle2.col = 6;
-        redHorse1.row = 9; redHorse1.col = 1;
-        redHorse2.row = 9; redHorse2.col = 7;
-        redCar1.row = 9; redCar1.col = 0;
-        redCar2.row = 9; redCar2.col = 8;
-        redGun1.row = 7; redGun1.col = 1;
-        redGun2.row = 7; redGun2.col = 7;
-        redBing1.row = 6; redBing1.col = 0;
-        redBing2.row = 6; redBing2.col = 2;
-        redBing3.row = 6; redBing3.col = 4;
-        redBing4.row = 6; redBing4.col = 6;
-        redBing5.row = 6; redBing5.col = 8;
+        redShuai.row = 9; redShuai.col = 4;redShuai.isDead = false
+        redShi1.row = 9; redShi1.col = 3;redShi1.isDead = false
+        redShi2.row = 9; redShi2.col = 5;redShi2.isDead = false
+        redEle1.row = 9; redEle1.col = 2;redEle1.isDead = false
+        redEle2.row = 9; redEle2.col = 6;redEle2.isDead = false
+        redHorse1.row = 9; redHorse1.col = 1;redHorse1.isDead = false
+        redHorse2.row = 9; redHorse2.col = 7;redHorse2.isDead = false
+        redCar1.row = 9; redCar1.col = 0;redCar1.isDead = false
+        redCar2.row = 9; redCar2.col = 8;redCar2.isDead = false
+        redGun1.row = 7; redGun1.col = 1;redGun1.isDead = false
+        redGun2.row = 7; redGun2.col = 7;redGun2.isDead = false
+        redBing1.row = 6; redBing1.col = 0;redBing1.isDead = false
+        redBing2.row = 6; redBing2.col = 2;redBing2.isDead = false
+        redBing3.row = 6; redBing3.col = 4;redBing3.isDead = false
+        redBing4.row = 6; redBing4.col = 6;redBing4.isDead = false
+        redBing5.row = 6; redBing5.col = 8;redBing5.isDead = false
     }
 //通过类型和阵营寻找棋子
     function getID1(index,camp) {

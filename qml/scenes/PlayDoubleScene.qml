@@ -14,7 +14,16 @@ SceneBase {
     id:playDoubleScene
     height: 960
     width:640
+    property int camp
+    property int isServer: camp
+    property bool isConnected
+    property int lastRow
+    property int lastCol
+    property int newRow
+    property int newCol
+    signal move_connect
 
+    signal move_server
 
     Image{
         id:background
@@ -85,7 +94,7 @@ SceneBase {
 
         BlackShiChess{ id:blackShi2;index :5 }
 
-        BlackShuaiChess{ id:blackShuai;index :0}
+        BlackShuaiChess{id:blackShuai;index :0}
 
         BlackGunChess{ id:blackGun1;index :9 }
 
@@ -155,6 +164,20 @@ SceneBase {
 
     }
 
+    onMove_connect: {
+        console.log("5")
+        console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+        gameLogic.moveChess(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+        console.log("move")
+    }
+
+    onMove_server: {
+        console.log("55")
+        console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+        gameLogic.moveChess(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+        console.log("move")
+    }
+
     ButtonBase {
         id: backButton
         width: 50
@@ -179,11 +202,36 @@ SceneBase {
 
     GameLogic{
         id:gameLogic
+
+        onCommunication: {
+            if(isServer == 1){
+                createRoomScene.row1 = parent.lastRow
+                createRoomScene.col1 = parent.lastCol
+                createRoomScene.row2 = parent.newRow
+                createRoomScene.col2 = parent.newCol
+                console.log("1");
+                console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+                createRoomScene.sendMes()
+            } else {
+                joinRoomScene.row1 = parent.lastRow
+                joinRoomScene.col1 = parent.lastCol
+                joinRoomScene.row2 = parent.newRow
+                joinRoomScene.col2 = parent.newCol
+                console.log("11")
+                console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+                joinRoomScene.sendMes()
+            }
+        }
     }
 
     ChooseRules{
         anchors.centerIn: gameWindowAnchorItem
         id: chooseRules
+    }
+
+    GameOver{
+        id:gameOver
+        anchors.centerIn: gameWindowAnchorItem
     }
 
     CannotMove{

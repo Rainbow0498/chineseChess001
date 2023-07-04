@@ -78,5 +78,6 @@
         <file>qml/scenes/CreateRoomScene.qml</file>
         <file>qml/scenes/JoinRoomScene.qml</file>
         <file>qml/scenes/LocalMenuScene.qml</file>
+        <file>qml/dialogs/GameOver.qml</file>
     </qresource>
 </RCC>

@@ -17,10 +17,10 @@ Client::Client(QObject *parent)
         QByteArray data = _socket->readAll();  //读取服务端发送过来的数据
 
         QStringList list = QString(data).split(",");
-        lastrow = 10-list[0].toInt()+1;
-        lastcol = 9-list[1].toInt()+1;
-        row = 10-list[2].toInt()+1;
-        col = 9-list[3].toInt()+1;
+        lastrow = list[0].toInt();
+        lastcol =list[1].toInt();
+        row = list[2].toInt();
+        col =list[3].toInt();
         qDebug()<<list<<"  "<<lastrow<<"  "<<lastcol<<"  "<<row<<"  "<<col;
         emit receiveOk(); //将数据发送到QML端进行使用
     });

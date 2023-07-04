@@ -114,27 +114,27 @@ SceneBase {
     Server{
         id:server
 
-                onConnectSuccess: {
-                    gamePressed()
-                    gameLogic.camp = 0
-                    playScene.visible = true
-                    waitMessage.visible = false
-                }
+        onConnectSuccess: {
+            gamePressed()
+            playDoubleScene.camp = 1
+//            playScene.visible = true
+            waitMessage.visible = false
+        }
 
-                onReceiveOk: {
-                    console.log("44")
-                    row1=server.lastrow
-                    col1=server.lastcol
-                    row2=server.row
-                    col2=server.col
-                    console.log(row1,col1,row2,col2)
-                    gameScene.move_server()
-                }
+        onReceiveOk: {
+            console.log("44")
+            row1=server.lastrow
+            col1=server.lastcol
+            row2=server.row
+            col2=server.col
+            console.log(row1,col1,row2,col2)
+            playDoubleScene.move_server()
+        }
 
-                onWriteOk: {
-                    console.log("3")
-                    console.log("C write ok")
-                }
+        onWriteOk: {
+            console.log("3")
+            console.log("C write ok")
+        }
     }
 
     onSendMes:{
@@ -144,7 +144,7 @@ SceneBase {
     }
 
     onDisConnect_Server: {
-           server.disConnect()
-       }
+        server.disConnect()
+    }
 }
 

@@ -181,6 +181,11 @@ SceneBase {
         id:gameLogic
     }
 
+    GameOver{
+        id:gameOver
+        anchors.centerIn: gameWindowAnchorItem
+    }
+
     ChooseRules{
         anchors.centerIn: gameWindowAnchorItem
         id: chooseRules

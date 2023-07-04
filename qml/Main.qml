@@ -75,8 +75,7 @@ GameWindow {
         onBackButtonPressed: gameWindow.state = "network"
         onGamePressed: {
             gameWindow.state = "playDouble"
-//            gameScene.init()
-//            gameScene.isConnected = true
+            playDoubleScene.isConnected = true
         }
     }
 
@@ -85,8 +84,8 @@ GameWindow {
         onBackButtonPressed: gameWindow.state = "network"
         onGamePressed: {
             gameWindow.state = "playDouble"
-//            gameScene.init()
-//            gameScene.isConnected = true
+
+            playDoubleScene.isConnected = true
         }
     }
 

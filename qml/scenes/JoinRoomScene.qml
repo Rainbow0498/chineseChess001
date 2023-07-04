@@ -112,8 +112,8 @@ SceneBase {
         id:client
         onConnectSuccess: {
             gamePressed()
-            gameLogic.camp = 1
-            playScene.visible = true
+            playDoubleScene.camp = 0
+//            playScene.visible = true
         }
         onReceiveOk: {
             console.log("4")
@@ -122,7 +122,7 @@ SceneBase {
             row2=client.row
             col2=client.col
             console.log(row1,col1,row2,col2)
-            gameScene.move_connect()
+            playDoubleScene.move_connect()
         }
         onWriteOk: {
             console.log("33")
