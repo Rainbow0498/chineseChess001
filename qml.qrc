@@ -69,7 +69,6 @@
         <file>qml/entities/BlackShuaiChess.qml</file>
         <file>qml/entities/BlackShiChess.qml</file>
         <file>qml/entities/BlackEleChess.qml</file>
-        <file>assets/audio/BG.mp3</file>
         <file>qml/dialogs/ChooseRules.qml</file>
         <file>qml/scenes/GameLogic.qml</file>
         <file>assets/audio/JiangJun.wav</file>
@@ -79,5 +78,6 @@
         <file>qml/scenes/JoinRoomScene.qml</file>
         <file>qml/scenes/LocalMenuScene.qml</file>
         <file>qml/dialogs/GameOver.qml</file>
+        <file>assets/audio/BG1.mp3</file>
     </qresource>
 </RCC>

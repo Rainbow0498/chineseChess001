@@ -204,16 +204,9 @@ GameWindow {
         }
     ]
 
-    //    // background music
-    //    BackgroundMusic {
-    //      volume: 0.20
-    //      id: ambienceMusic
-    //      source: "../../..."
-    //    }
-
     MediaPlayer{
         id:musicPlayer
-        source: "../assets/audio/BG.mp3"
+        source: "../assets/audio/BG1.mp3"
         volume: 0.5
         autoPlay: false
         loops:MediaPlayer.Infinite

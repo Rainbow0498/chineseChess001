@@ -28,7 +28,7 @@ Item {
 
 
 
-    //单人对战处理逻辑
+    //单人和双人对战处理逻辑
     function getChoosePos(mouseX,mouseY){
         newCol = (mouseX+34)/68
         newRow = (mouseY+34)/68
@@ -118,7 +118,17 @@ Item {
         console.log(lastCol +" "+ lastRow+" " +newRow +" "+newCol)
         if(getID(newY,newX)!==null){
             console.log(getID(newY,newX))
+            if(getID(newY,newX)===redShuai){
+                console.log(11)
+                gameOver.winner = false
+                gameOver.visible = true
+            }else if(getID(newY,newX)===blackShuai){
+                console.log(11)
+                gameOver.winner = true
+                gameOver.visible = true
+            }
             getID(newY,newX).isDead = true
+
         }
         stepCount++
         move.start()
